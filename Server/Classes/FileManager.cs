@@ -16,7 +16,9 @@ namespace Server.Classes
             {
                 try
                 {
-                    serverConfig = JsonConvert.DeserializeObject<ServerConfig>(filePath)!;
+                    string configRead = File.ReadAllText(filePath);
+                    serverConfig = JsonConvert.DeserializeObject<ServerConfig>(configRead)!;
+                    Console.WriteLine("Loaded Server Config");
                 }
                 catch (Exception ex)
                 {
@@ -33,13 +35,5 @@ namespace Server.Classes
                 serverConfig = tmpConfig;
             }
         }
-    }
-
-
-    // Server configuration class
-    public class ServerConfig
-    {
-        public string serverIP {  get; set; } = "127.0.0.1";
-        public int serverPort { get; set; } = 80;
     }
 }

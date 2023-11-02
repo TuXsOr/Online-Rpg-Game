@@ -10,12 +10,12 @@ namespace Server.Classes.Network
         // Declare global manager to reference other managers as needed
         private GlobalManager globalManager;
 
-        private int bufferSize = 1024;
-
         // Setup default server configuration
         public IPAddress serverIP = IPAddress.Parse("127.0.0.1");
         public int serverPort = 80;
-        
+        private int bufferSize = 1024;
+        private ProtocalHandler protocalHandler;
+
         // Declare the TCP listener
         public TcpListener? listener;
 
@@ -26,6 +26,7 @@ namespace Server.Classes.Network
         public NetworkManager(GlobalManager inManager)
         {
             globalManager = inManager;
+            protocalHandler = new ProtocalHandler(this);
         }
 
 
@@ -33,12 +34,20 @@ namespace Server.Classes.Network
         // Handling incoming clients
         public void AcceptConnections()
         {
+            // Setup TCP listener and its parameters
             serverIP = IPAddress.Parse(globalManager.fileManager.serverConfig.serverIP);
             serverPort = globalManager.fileManager.serverConfig.serverPort;
+            bufferSize = globalManager.fileManager.serverConfig.networkBufferSize;
             
             listener = new TcpListener(serverIP, serverPort);
             listener.Start();
 
+            Console.WriteLine("Accepting Connections");
+
+
+            // This should be put in a try/catch statement
+            // That could handle eny encountered errors and also provide additional debug
+            // It might need help looping back around, perhaps add a legitimate condition in the while loop?
             while (true)
             {
                 // Accept incoming clients
@@ -47,6 +56,7 @@ namespace Server.Classes.Network
                 // Make sure client connected
                 if (client != null)
                 {
+                    // Create new connected client data
                     ConnectedClient newClient = new ConnectedClient();
                     newClient.tcpClient = client;
                     newClient.username = string.Empty;
@@ -54,10 +64,12 @@ namespace Server.Classes.Network
                     // Add newly connected client to list of all connected clients
                     connectedClients.Add(newClient);
 
+                    // Start client handling thread
+                    Thread newClientThread = new Thread(HandleClient);
+                    newClientThread.Start(newClient);
 
-                    // Handle connected client
-                    // Add some sort of handshake
-
+                    // Init Handshake with client
+                    SendClientMessage(newClient, "handshake", "start");
                 }
             }
         }
@@ -98,15 +110,33 @@ namespace Server.Classes.Network
                         // If the incoming data is not null
                         if (inData != null)
                         {
-                            ProtocalHandler.HandleProtocol(client, inData);
+                            protocalHandler.HandleProtocol(client, inData);
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    // Find better way of handling this.
+                    // This should remove the client from the connected clients list
+                    // And Close the thread
+                    Console.WriteLine($"Error in NetworkManager Handle Client Thread. Message: \n{ex}");
                 }
             }
+        }
+
+
+        // Message Target Client
+        public void SendClientMessage(ConnectedClient inClient, string outProtocol, string outArgs)
+        {
+            NetworkTransfer outTransfer = new NetworkTransfer();
+            outTransfer.protocol = outProtocol;
+            outTransfer.args = outArgs;
+
+            string outJson = JsonConvert.SerializeObject(outTransfer);
+            byte[] outData = Encoding.UTF8.GetBytes(outJson);
+
+            NetworkStream clientStream = inClient.tcpClient.GetStream();
+            clientStream.Write(outData);
         }
     }
 

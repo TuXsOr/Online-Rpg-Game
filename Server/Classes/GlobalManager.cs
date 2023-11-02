@@ -20,15 +20,22 @@ namespace Server.Classes
 
         public void StartServer()
         {
+            Console.WriteLine("Starting Server");
             running = true;
-            Console.WriteLine("Starting server");
 
+            Thread networkThread = new Thread(networkManager.AcceptConnections);
+            networkThread.IsBackground = true;
+            networkThread.Start();
 
-            Console.WriteLine("Server is running");
+            Tick();
+        }
 
+        public void Tick()
+        {
             while (running)
             {
-                Thread.Sleep(1000);
+                // Wait for next tick
+                Thread.Sleep(fileManager.serverConfig.tickRate);
             }
         }
     }
