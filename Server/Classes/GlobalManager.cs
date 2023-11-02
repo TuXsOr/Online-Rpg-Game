@@ -1,4 +1,6 @@
-﻿namespace Server.Classes
+﻿using Server.Classes.Network;
+
+namespace Server.Classes
 {
     internal class GlobalManager
     {
@@ -13,13 +15,21 @@
         {
             // instanstiate the other managers
             fileManager = new FileManager();
-            networkManager = new NetworkManager();
+            networkManager = new NetworkManager(this);
         }
 
         public void StartServer()
         {
             running = true;
             Console.WriteLine("Starting server");
+
+
+            Console.WriteLine("Server is running");
+
+            while (running)
+            {
+                Thread.Sleep(1000);
+            }
         }
     }
 }

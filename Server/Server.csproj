@@ -8,18 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="ServerConfig.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ServerConfig.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="ServerConfig.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ServerConfig.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
