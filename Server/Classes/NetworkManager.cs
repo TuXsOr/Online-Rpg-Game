@@ -8,7 +8,7 @@ namespace Server.Classes.Network
     internal class NetworkManager
     {
         // Declare global manager to reference other managers as needed
-        private GlobalManager globalManager;
+        internal GlobalManager globalManager;
 
         // Setup default server configuration
         public IPAddress serverIP = IPAddress.Parse("127.0.0.1");
@@ -44,10 +44,15 @@ namespace Server.Classes.Network
 
             Console.WriteLine("Accepting Connections");
 
+            int curIndex = 0; // Connected client index
 
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
             // This should be put in a try/catch statement
             // That could handle eny encountered errors and also provide additional debug
             // It might need help looping back around, perhaps add a legitimate condition in the while loop?
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
             while (true)
             {
                 // Accept incoming clients
@@ -60,6 +65,8 @@ namespace Server.Classes.Network
                     ConnectedClient newClient = new ConnectedClient();
                     newClient.tcpClient = client;
                     newClient.username = string.Empty;
+                    newClient.clientID = curIndex;
+                    curIndex++; // Move to next client index
 
                     // Add newly connected client to list of all connected clients
                     connectedClients.Add(newClient);
@@ -138,6 +145,26 @@ namespace Server.Classes.Network
             NetworkStream clientStream = inClient.tcpClient.GetStream();
             clientStream.Write(outData);
         }
+
+        // Get index of client with id from the list of connected clients
+        public int GetClientIndex(int clientID)
+        {
+            for (int i = 0; i <= connectedClients.Count; i++)
+            {
+                if (connectedClients[i].clientID == clientID)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        // Update a connected client's details on the server's end
+        public void UpdateConnectedClient(int clientID, ConnectedClient clientInfo)
+        {
+            connectedClients.Add(clientInfo);
+            connectedClients.RemoveAt(GetClientIndex(clientID));
+        }
     }
 
 
@@ -149,6 +176,7 @@ namespace Server.Classes.Network
     {
         public TcpClient tcpClient { get; set; } = new TcpClient();
         public string username { get; set; } = string.Empty;
+        public int clientID { get; set; }
     }
 
 
