@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Server.Classes.Account;
 using Server.Classes.Game;
-using Server.Classes.Security;
 using System.Text.Json;
 
 namespace Server.Classes
@@ -10,8 +9,21 @@ namespace Server.Classes
     {
         public ServerConfig serverConfig = new ServerConfig();
 
-        public FileManager() { LoadServerConfig(); }
+        // Constructor
+        public FileManager() { LoadServerConfig(); SetupDataDirectory(); }
 
+
+        public void SetupDataDirectory()
+        {
+            // Setup Data Directories
+            Directory.CreateDirectory(serverConfig.serverDataPath);
+            Directory.CreateDirectory($"{serverConfig.serverDataPath}");
+            Directory.CreateDirectory($"{serverConfig.serverDataPath}\\World");
+            Directory.CreateDirectory($"{serverConfig.serverDataPath}\\Characters");
+            Directory.CreateDirectory($"{serverConfig.serverDataPath}\\UserAccounts");
+
+
+        }
 
 
         // Load server configuration into memory

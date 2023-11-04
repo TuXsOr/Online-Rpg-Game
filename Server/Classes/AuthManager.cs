@@ -42,7 +42,7 @@ namespace Server.Classes.Auth
                     newUser.username = username;
                     newUser.password = password;
                     newUser.email = email;
-                    newUser.characters.Add(username);
+                    newUser.characters.Append(username);
 
                     // Write account data to the users folder
                     globalManager.fileManager.UpdateAccountData(username, newUser);
