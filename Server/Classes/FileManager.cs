@@ -16,13 +16,9 @@ namespace Server.Classes
         public void SetupDataDirectory()
         {
             // Setup Data Directories
-            Directory.CreateDirectory(serverConfig.serverDataPath);
-            Directory.CreateDirectory($"{serverConfig.serverDataPath}");
             Directory.CreateDirectory($"{serverConfig.serverDataPath}\\World");
             Directory.CreateDirectory($"{serverConfig.serverDataPath}\\Characters");
             Directory.CreateDirectory($"{serverConfig.serverDataPath}\\UserAccounts");
-
-
         }
 
 
