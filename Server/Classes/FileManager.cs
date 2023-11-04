@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Server.Classes.Account;
 using Server.Classes.Game;
-using System.Text;
+using Server.Classes.Security;
+using System.Text.Json;
 
 namespace Server.Classes
 {
     internal class FileManager
     {
         public ServerConfig serverConfig = new ServerConfig();
+
         public FileManager() { LoadServerConfig(); }
+
 
 
         // Load server configuration into memory
@@ -31,7 +34,7 @@ namespace Server.Classes
             else
             {
                 ServerConfig tmpConfig = new ServerConfig();
-                string configJson = JsonConvert.SerializeObject(tmpConfig);
+                string configJson = JsonConvert.SerializeObject(tmpConfig, Formatting.Indented);
 
                 File.WriteAllText(filePath, configJson);
 
@@ -70,7 +73,7 @@ namespace Server.Classes
         {
             string filepath = $"{serverConfig.serverDataPath}\\Characters\\{inName.ToLower()}.json";
 
-            string characterJson = JsonConvert.SerializeObject(newData);
+            string characterJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
             File.WriteAllText(filepath, characterJson);
         }
 
@@ -98,12 +101,14 @@ namespace Server.Classes
 
         public bool UpdateAccountData(string username, UserAccount newData)
         {
-            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.json";
-            string newDataJson = JsonConvert.SerializeObject(newData);
+            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.usr";
+            string newDataJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
+            // string encryptedJson = E_crypt.EncryptString(newDataJson, serverConfig.backupKey);
 
             try
             {
-                // Encrypt User Data before storeing user data
+                File.WriteAllText(filepath, newDataJson);
+                return true;
             }
             catch (Exception ex)
             {
@@ -115,7 +120,7 @@ namespace Server.Classes
         // Check if account exists
         public bool AccountExists(string username)
         {
-            string filepath = $"{serverConfig.serverDataPath}\\Useraccounts\\{username.ToLower()}.json";
+            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.usr";
             return File.Exists(filepath);
         }
     }
