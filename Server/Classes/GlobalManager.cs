@@ -31,11 +31,6 @@ namespace Server.Classes
             networkThread.IsBackground = true;
             networkThread.Start();
 
-            UserAccount tempUser = new UserAccount();
-            tempUser.username = "bungo";
-            fileManager.UpdateAccountData("bungo", tempUser);
-            Console.WriteLine("Created User bungo");
-
             Tick();
         }
 

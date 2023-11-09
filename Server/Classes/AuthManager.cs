@@ -13,7 +13,7 @@ namespace Server.Classes.Auth
         }
 
 
-
+        // Login Handling
         internal bool AttemptLogin(string username, string password)
         {
             // Get user account info
@@ -29,7 +29,7 @@ namespace Server.Classes.Auth
         }
 
 
-
+        // Account Creation handling
         internal bool CreateAccount(string username, string password, string email)
         {
             // Check if account already exists
@@ -43,10 +43,10 @@ namespace Server.Classes.Auth
                     newUser.password = password;
                     newUser.email = email;
                     newUser.characters.Append(username);
+                    newUser.flags.Add("u");
 
                     // Write account data to the users folder
                     globalManager.fileManager.UpdateAccountData(username, newUser);
-                    globalManager.fileManager.CreateCharacter(username);
                     return true;
                 }
                 catch (Exception ex)

@@ -81,8 +81,13 @@ namespace Server.Classes
         {
             string filepath = $"{serverConfig.serverDataPath}\\Characters\\{inName.ToLower()}.json";
 
-            string characterJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
-            File.WriteAllText(filepath, characterJson);
+            try
+            {
+                string characterJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
+                File.WriteAllText(filepath, characterJson);
+                Console.WriteLine($"Wrote to {filepath} for {newData.name}");
+            }
+            catch (Exception ex) { Console.WriteLine(ex); }
         }
 
 
@@ -116,6 +121,7 @@ namespace Server.Classes
             try
             {
                 File.WriteAllText(filepath, newDataJson);
+                CreateCharacter(username);
                 return true;
             }
             catch (Exception ex)

@@ -12,7 +12,7 @@ namespace Server.Classes.Account
         public string username {  get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;
-        public string[] characters { get; set; } = new string[1];
+        public List<string> characters { get; set; } = new List<string>();
         public List<string> flags { get; set; } = new List<string>();
     }
 }
