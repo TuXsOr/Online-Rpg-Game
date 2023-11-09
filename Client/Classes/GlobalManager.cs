@@ -1,16 +1,7 @@
-﻿using System.Windows.Forms;
-
-namespace Client.Classes.Managers
+﻿namespace Client.Classes
 {
-    public class GlobalManager : ApplicationContext
+    internal class GlobalManager : ApplicationContext
     {
-        // Declare manager variables
-        internal FormManager formManager;
-       public GlobalManager()
-        {
-            formManager = new FormManager(this);
-        }
-
-        public void CloseApplication() { ExitThreadCore(); }
+        public GlobalManager() { }
     }
 }

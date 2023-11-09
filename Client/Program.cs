@@ -1,22 +1,16 @@
-﻿using Client.Classes.Managers;
-using System;
-using System.Windows.Forms;
+using Client.Classes;
 
 namespace Client
 {
-    
     internal static class Program
     {
-        [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            ApplicationConfiguration.Initialize();
 
-            // Create global manager object and then run it
+            // Setup Global Manager
             GlobalManager manager = new GlobalManager();
             Application.Run(manager);
-
         }
     }
 }
