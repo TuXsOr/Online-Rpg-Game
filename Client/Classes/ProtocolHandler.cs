@@ -18,6 +18,13 @@ namespace Client.Classes
 
             switch (inProtocol)
             {
+                case "handshake":
+                    if (args[0] == "start")
+                    {
+                        globalManager.networkManager.MessageServer("handshake", "c");
+                        break;
+                    } else { break; }
+
                 default:
                     Debug.WriteLine($"Recieved unknown protocol: {inProtocol}");
                     break;

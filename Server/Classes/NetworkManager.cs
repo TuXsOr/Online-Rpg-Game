@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 using Newtonsoft.Json;
+using Game.Networking;
 
 namespace Server.Classes.Network
 {
@@ -39,10 +40,10 @@ namespace Server.Classes.Network
             serverPort = globalManager.fileManager.serverConfig.serverPort;
             bufferSize = globalManager.fileManager.serverConfig.networkBufferSize;
             
-            listener = new TcpListener(serverIP, serverPort);
+            listener = new TcpListener(IPAddress.Any, serverPort); // Why can't I parse a ip address string here?
             listener.Start();
 
-            Console.WriteLine("Accepting Connections");
+            Console.WriteLine($"Accepting Connections on {serverIP}:{serverPort}");
 
             int curIndex = 0; // Connected client index
 
@@ -170,23 +171,11 @@ namespace Server.Classes.Network
     }
 
 
-
-
-
     // Connected client class
     public class ConnectedClient
     {
         public TcpClient tcpClient { get; set; } = new TcpClient();
         public string username { get; set; } = string.Empty;
         public int clientID { get; set; }
-    }
-
-
-    // Serelized object used in sending and receieving data
-    [Serializable]
-    public class NetworkTransfer
-    {
-        public string protocol { get; set; } = "bungo";
-        public string args { get; set; } = string.Empty;
     }
 }

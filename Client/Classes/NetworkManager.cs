@@ -3,12 +3,14 @@ using System.Diagnostics;
 using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
+using Game.Networking;
 
 namespace Client.Classes
 {
     internal class NetworkManager
     {
         private GlobalManager globalManager;
+        private ProtocolHandler protocolHandler;
 
         // Network Connection Properties
         internal string targetIP = "127.0.0.1";
@@ -24,7 +26,12 @@ namespace Client.Classes
 
 
         // Constructor
-        public NetworkManager(GlobalManager inManager) { globalManager = inManager; }
+        public NetworkManager(GlobalManager inManager)
+        {
+            // Setup global manager reference and create new protocol handler with reference
+            globalManager = inManager;
+            protocolHandler = new ProtocolHandler(inManager);
+        }
 
         
         // Attempt Connection
@@ -63,8 +70,16 @@ namespace Client.Classes
                     if (bytesRead > 0)
                     {
                         string readData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                        NetworkTransfer inData = JsonConvert.DeserializeObject<NetworkTransfer>(readData);
-                        Debug.WriteLine($"Received {inData.protocol}, with the following details: {inData.args}");
+                        NetworkTransfer? inData = JsonConvert.DeserializeObject<NetworkTransfer>(readData);
+                        if (inData != null)
+                        {
+                            Debug.WriteLine($"Received {inData.protocol}, with the following details: {inData.args}");
+                            protocolHandler.HandleProtocol(inData.protocol, inData.args);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Recieved a Null transfer data");
+                        }
                     }
                     else { Debug.WriteLine("No data recieved"); }
 
@@ -74,6 +89,24 @@ namespace Client.Classes
             {
                 Debug.WriteLine($"Error in Network Manager when handling communication. \n Error Message: \n {ex}");
             }
+        }
+
+        // Send message to server
+        public void MessageServer(string outProtocol, string outArgs)
+        {
+            if (stream != null)
+            {
+                NetworkTransfer outTransfer = new NetworkTransfer();
+                outTransfer.protocol = outProtocol;
+                outTransfer.args = outArgs;
+
+                string outJson = JsonConvert.SerializeObject(outTransfer);
+                byte[] outData = Encoding.UTF8.GetBytes(outJson);
+
+                stream.Write(outData);
+            }
+            else { Debug.WriteLine("Client Stream was null"); }
+            
         }
     }
 }
