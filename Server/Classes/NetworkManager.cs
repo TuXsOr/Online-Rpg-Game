@@ -61,6 +61,8 @@ namespace Server.Classes.Network
                 // Make sure client connected
                 if (client != null)
                 {
+                    Console.WriteLine("Client Attempting Connection");
+
                     // Create new connected client data
                     ConnectedClient newClient = new ConnectedClient();
                     newClient.tcpClient = client;

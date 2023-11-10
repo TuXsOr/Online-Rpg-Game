@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            ipBox = new TextBox();
+            connectButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -42,29 +42,30 @@
             label1.TabIndex = 0;
             label1.Text = "IP Address";
             // 
-            // textBox1
+            // ipBox
             // 
-            textBox1.Location = new Point(12, 25);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 1;
+            ipBox.Location = new Point(12, 25);
+            ipBox.Name = "ipBox";
+            ipBox.Size = new Size(100, 23);
+            ipBox.TabIndex = 1;
             // 
-            // button1
+            // connectButton
             // 
-            button1.Location = new Point(12, 54);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Connect";
-            button1.UseVisualStyleBackColor = true;
+            connectButton.Location = new Point(12, 54);
+            connectButton.Name = "connectButton";
+            connectButton.Size = new Size(100, 23);
+            connectButton.TabIndex = 2;
+            connectButton.Text = "Connect";
+            connectButton.UseVisualStyleBackColor = true;
+            connectButton.Click += connectButton_Click;
             // 
             // ServerSelect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(126, 80);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(connectButton);
+            Controls.Add(ipBox);
             Controls.Add(label1);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -77,7 +78,7 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox ipBox;
+        private Button connectButton;
     }
 }

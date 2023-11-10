@@ -8,7 +8,7 @@ namespace Client
         {
             ApplicationConfiguration.Initialize();
 
-            // Setup Global Manager
+            // Setup Global Manager and then run it
             GlobalManager manager = new GlobalManager();
             Application.Run(manager);
         }
