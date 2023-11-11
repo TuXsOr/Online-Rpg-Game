@@ -42,5 +42,10 @@ namespace Server.Classes
                 Thread.Sleep(fileManager.serverConfig.tickRate);
             }
         }
+
+        public void CloseServer()
+        {
+            Environment.Exit(0);
+        }
     }
 }

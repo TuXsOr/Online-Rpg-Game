@@ -9,8 +9,8 @@ namespace Server.Classes
     // Server configuration class
     public class ServerConfig
     {
-        public string serverIP { get; set; } = "127.0.0.1";
-        public int serverPort { get; set; } = 80;
+        public string serverIP { get; set; } = "0.0.0.0";
+        public int serverPort { get; set; } = 8080;
         public int networkBufferSize { get; set; } = 1024;
         public int tickRate { get; set; } = 1000;
         public int startingMoney { get; set; } = 0;

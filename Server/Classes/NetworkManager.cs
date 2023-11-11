@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using Newtonsoft.Json;
 using Game.Networking;
+using System.Diagnostics;
 
 namespace Server.Classes.Network
 {
@@ -12,7 +13,7 @@ namespace Server.Classes.Network
         internal GlobalManager globalManager;
 
         // Setup default server configuration
-        public IPAddress serverIP = IPAddress.Parse("127.0.0.1");
+        public IPAddress serverIP = IPAddress.Parse("0.0.0.0");
         public int serverPort = 80;
         private int bufferSize = 1024;
         private ProtocalHandler protocalHandler;
@@ -35,51 +36,67 @@ namespace Server.Classes.Network
         // Handling incoming clients
         public void AcceptConnections()
         {
+            int curIndex = 0; // Connected client index
+
             // Setup TCP listener and its parameters
             serverIP = IPAddress.Parse(globalManager.fileManager.serverConfig.serverIP);
             serverPort = globalManager.fileManager.serverConfig.serverPort;
             bufferSize = globalManager.fileManager.serverConfig.networkBufferSize;
-            
-            listener = new TcpListener(IPAddress.Any, serverPort); // Why can't I parse a ip address string here?
-            listener.Start();
 
-            Console.WriteLine($"Accepting Connections on {serverIP}:{serverPort}");
+            // Try and setup the TcpListner class and start listening
+            try
+            {
+                listener = new TcpListener(IPAddress.Any, serverPort); // Why can't I parse a ip address string here?
+                listener.Start();
 
-            int curIndex = 0; // Connected client index
+                Console.WriteLine($"Accepting Connections on {serverIP}:{serverPort}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Encountered error Network Manager when binding to IP address.\nError Message:\n{ex.Message}");
+            }
 
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
-            // This should be put in a try/catch statement
-            // That could handle eny encountered errors and also provide additional debug
             // It might need help looping back around, perhaps add a legitimate condition in the while loop?
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
             while (true)
             {
-                // Accept incoming clients
-                TcpClient client = listener.AcceptTcpClient();
-
-                // Make sure client connected
-                if (client != null)
+                // Try to accept incoming connection and handle incoming client.
+                try
                 {
-                    Console.WriteLine("Client Attempting Connection");
+                    // Accept incoming clients
+                    TcpClient client = listener!.AcceptTcpClient();
 
-                    // Create new connected client data
-                    ConnectedClient newClient = new ConnectedClient();
-                    newClient.tcpClient = client;
-                    newClient.username = string.Empty;
-                    newClient.clientID = curIndex;
-                    curIndex++; // Move to next client index
+                    // Make sure client connected
+                    if (client != null)
+                    {
+                        Console.WriteLine("Client Attempting Connection");
 
-                    // Add newly connected client to list of all connected clients
-                    connectedClients.Add(newClient);
+                        // Create new connected client data
+                        ConnectedClient newClient = new ConnectedClient();
+                        newClient.tcpClient = client;
+                        newClient.username = string.Empty;
+                        newClient.clientID = curIndex;
+                        curIndex++; // Move to next client index
 
-                    // Start client handling thread
-                    Thread newClientThread = new Thread(HandleClient);
-                    newClientThread.Start(newClient);
+                        // Add newly connected client to list of all connected clients
+                        connectedClients.Add(newClient);
 
-                    // Init Handshake with client
-                    SendClientMessage(newClient, "handshake", "start");
+                        // Start client handling thread
+                        Thread newClientThread = new Thread(HandleClient);
+                        newClientThread.Start(newClient);
+
+                        // Init Handshake with client
+                        SendClientMessage(newClient, "handshake", "start");
+                    }
+                    else { Console.WriteLine("Client failed to propperly connect"); }
+                }
+                catch (Exception ex)
+                {
+                    // There should be additonal error handling here
+                    Console.WriteLine($"Encountered error Network Manager when accepting connection.\nError Message:\n{ex.Message}");
                 }
             }
         }
