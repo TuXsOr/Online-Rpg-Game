@@ -8,7 +8,10 @@ namespace Client.Classes
 
 
         // Constructor
-        public ProtocolHandler(GlobalManager inManager) { globalManager = inManager; }
+        public ProtocolHandler(GlobalManager inManager)
+        {
+            globalManager = inManager;
+        }
 
 
         // Handle incoming protocol name
@@ -25,6 +28,33 @@ namespace Client.Classes
                         break;
                     } else { break; }
 
+<<<<<<< Updated upstream
+=======
+                case "login":
+                    if (args[0] == "request")
+                    {
+                        // Invoke event with menu name
+                        globalManager.formManager.Invoke(new Action(() => { globalManager.formManager.SwitchForm("login"); }));
+                        break;
+                    }
+                    else if (args[0] == "success")
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.UpdateLoadingDisplay("Retrieving character Data...", 0);
+                            globalManager.networkManager.MessageServer("characterrequest", $"1:{args[1]}");
+                        }));
+                        break;
+                    }
+                    break;
+
+                case "characterdata":
+
+
+                    break;
+                    
+
+>>>>>>> Stashed changes
                 default:
                     Debug.WriteLine($"Recieved unknown protocol: {inProtocol}");
                     break;

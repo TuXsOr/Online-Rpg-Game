@@ -67,6 +67,7 @@
             Controls.Add(connectButton);
             Controls.Add(ipBox);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ServerSelect";

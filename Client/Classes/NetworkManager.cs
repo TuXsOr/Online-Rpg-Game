@@ -4,6 +4,7 @@ using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
 using Game.Networking;
+using System.Security.Cryptography;
 
 namespace Client.Classes
 {
@@ -107,6 +108,43 @@ namespace Client.Classes
             }
             else { Debug.WriteLine("Client Stream was null"); }
             
+        }
+
+        // Attempt Login
+        internal void AttemptLogin(string username, string password)
+        {
+            if (username != string.Empty || password != string.Empty)
+            {
+                string hashedPassword = HashString(password);
+                Debug.WriteLine(hashedPassword);
+                MessageServer("login", $"{username.ToLower()}:{hashedPassword}");
+            }
+            else
+            {
+                globalManager.formManager.loginForm!.resultDisplay.Text = "Invalid Login Details";
+                globalManager.formManager.loginForm.resultDisplay.ForeColor = Color.Red;
+                globalManager.formManager.loginForm.resultDisplay.Visible = true;
+                globalManager.formManager.loginForm.loginButton.Enabled = true;
+            }
+
+        }
+
+        // Hash String
+        public string HashString(string inString)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inBytes = Encoding.UTF8.GetBytes(inString);
+                byte[] hashBytes = sha256.ComputeHash(inBytes);
+                StringBuilder builder = new StringBuilder();
+
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    builder.Append(hashBytes[i].ToString("x2"));
+                }
+                string outString = builder.ToString();
+                return outString;
+            }
         }
     }
 }
