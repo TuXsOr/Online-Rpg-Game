@@ -85,7 +85,7 @@ namespace Server.Classes
             {
                 string characterJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
                 File.WriteAllText(filepath, characterJson);
-                Console.WriteLine($"Wrote to {filepath} for {newData.name}");
+                Console.WriteLine($"Updated {inName}");
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
@@ -100,11 +100,12 @@ namespace Server.Classes
         // Get user account data from username
         public UserAccount? GetAccountInfo(string username)
         {
-            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.json";
+            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.usr";
             
             // Check if account exists
             if (File.Exists(filepath))
             {
+                Console.WriteLine("User File Exists");
                 string fileText = File.ReadAllText(filepath);
                 UserAccount targetAccount = JsonConvert.DeserializeObject<UserAccount>(fileText)!;
                 return targetAccount;

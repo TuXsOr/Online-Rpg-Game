@@ -22,6 +22,8 @@ namespace Client.Classes
         protected internal TcpClient? client;
         protected internal NetworkStream? stream;
 
+        internal bool connected = false;
+
         // declare communication thread
         Thread? communicationThread; // Possibly can use this during disconnect(?)
 
@@ -43,6 +45,8 @@ namespace Client.Classes
                 // Connect to server and get the stream
                 client = new TcpClient(targetIP, targetPort);
 
+                connected = true;
+
                 // Setup and start thread to handle communication with the server
                 communicationThread = new Thread(HandleCommunication);
                 communicationThread.IsBackground = true;
@@ -63,7 +67,7 @@ namespace Client.Classes
                 int bytesRead;
 
 
-                while (true) // Replace true with some value that can be changed
+                while (connected) // Replace true with some value that can be changed
                 {
                     // Get how many bytes to read
                     bytesRead = stream.Read(buffer, 0, buffer.Length);
@@ -85,6 +89,10 @@ namespace Client.Classes
                     else { Debug.WriteLine("No data recieved"); }
 
                 }
+            }
+            catch (IOException)
+            {
+                connected = false;
             }
             catch (Exception ex)
             {
@@ -113,14 +121,23 @@ namespace Client.Classes
         public void AttemptLogin(string username, string password)
         {
             string hashedPassword = HashString(password);
-            MessageServer("login", $"{username.ToLower()}:{hashedPassword}");
+            string outPassword = hashedPassword.Replace("-", string.Empty).ToLower();
+            MessageServer("login", $"{username}:{outPassword}");
 
         }
 
         public void CreateAccount(string username, string password, string email)
         {
             string hashedPassword = HashString(password);
-            MessageServer("createaccount", $"{username.ToLower()}:{hashedPassword}:{email}");
+            string outPassword = hashedPassword.Replace("-", string.Empty).ToLower();
+            MessageServer("createaccount", $"{username}:{outPassword}:{email}");
+        }
+
+        public void Disconnect()
+        {
+            connected = false;
+            
+            client!.Close();
         }
 
         public string HashString(string inString)

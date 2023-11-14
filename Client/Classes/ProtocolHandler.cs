@@ -36,9 +36,10 @@ namespace Client.Classes
                             break;
 
                         case "success":
-                            globalManager.networkManager.MessageServer("characterrequest", args[1]);
+                            globalManager.networkManager.MessageServer("characterrequest", args[0]);
                             globalManager.formManager.Invoke(new Action(() =>
                             {
+                                globalManager.formManager.UpdateLoadingMenu("Retrieveing Character Data...", 0);
                                 globalManager.formManager.ShowLoadingWindow();
                             }));
                             // Add additional stuff for showing loading bar and window

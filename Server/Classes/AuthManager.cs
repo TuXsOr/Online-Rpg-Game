@@ -1,4 +1,5 @@
 ﻿using Server.Classes.Account;
+using Server.Classes.Network;
 
 namespace Server.Classes.Auth
 {
@@ -16,10 +17,8 @@ namespace Server.Classes.Auth
         // Login Handling
         internal bool AttemptLogin(string username, string password)
         {
-            // Get user account info
-            UserAccount targetAccount = globalManager.fileManager.GetAccountInfo(username.ToLower())!;
-
-            Console.WriteLine($"Attempted login for user {username.ToLower()} using `{password}` as a password");
+            Console.WriteLine($"Attempted Login for {username}");
+            UserAccount targetAccount = globalManager.fileManager.GetAccountInfo(username)!;
 
             // Check if target account exists
             if (targetAccount != null)
@@ -32,7 +31,11 @@ namespace Server.Classes.Auth
                 else { return false; }
             }
             // If null, account does not exist
-            else { return false; }
+            else
+            {
+                Console.WriteLine("Null User");
+                return false;
+            }
         }
 
 

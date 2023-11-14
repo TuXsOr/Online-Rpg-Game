@@ -31,6 +31,7 @@
             createAccountButton = new Button();
             tabControl1 = new TabControl();
             loginTab = new TabPage();
+            loginResult = new Label();
             loginButton = new Button();
             passwordBox = new TextBox();
             usernameBox = new TextBox();
@@ -44,7 +45,7 @@
             s_usernameBox = new TextBox();
             label3 = new Label();
             label4 = new Label();
-            loginResult = new Label();
+            disconnectButton = new Button();
             tabControl1.SuspendLayout();
             loginTab.SuspendLayout();
             createAccountTab.SuspendLayout();
@@ -53,7 +54,7 @@
             // createAccountButton
             // 
             createAccountButton.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point);
-            createAccountButton.Location = new Point(6, 201);
+            createAccountButton.Location = new Point(6, 186);
             createAccountButton.Name = "createAccountButton";
             createAccountButton.Size = new Size(99, 32);
             createAccountButton.TabIndex = 5;
@@ -68,7 +69,7 @@
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(238, 287);
+            tabControl1.Size = new Size(238, 252);
             tabControl1.TabIndex = 6;
             // 
             // loginTab
@@ -82,10 +83,23 @@
             loginTab.Location = new Point(4, 24);
             loginTab.Name = "loginTab";
             loginTab.Padding = new Padding(3);
-            loginTab.Size = new Size(230, 259);
+            loginTab.Size = new Size(230, 224);
             loginTab.TabIndex = 0;
             loginTab.Text = "Login";
             loginTab.UseVisualStyleBackColor = true;
+            // 
+            // loginResult
+            // 
+            loginResult.AutoSize = true;
+            loginResult.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            loginResult.ForeColor = Color.Red;
+            loginResult.Location = new Point(112, 140);
+            loginResult.Name = "loginResult";
+            loginResult.Size = new Size(61, 25);
+            loginResult.TabIndex = 13;
+            loginResult.Text = "Failed";
+            loginResult.TextAlign = ContentAlignment.TopCenter;
+            loginResult.Visible = false;
             // 
             // loginButton
             // 
@@ -146,7 +160,7 @@
             createAccountTab.Location = new Point(4, 24);
             createAccountTab.Name = "createAccountTab";
             createAccountTab.Padding = new Padding(3);
-            createAccountTab.Size = new Size(230, 259);
+            createAccountTab.Size = new Size(230, 224);
             createAccountTab.TabIndex = 1;
             createAccountTab.Text = "Create Account";
             createAccountTab.UseVisualStyleBackColor = true;
@@ -156,7 +170,7 @@
             createAccountResult.AutoSize = true;
             createAccountResult.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
             createAccountResult.ForeColor = Color.Lime;
-            createAccountResult.Location = new Point(111, 201);
+            createAccountResult.Location = new Point(111, 189);
             createAccountResult.Name = "createAccountResult";
             createAccountResult.Size = new Size(100, 25);
             createAccountResult.TabIndex = 12;
@@ -217,29 +231,29 @@
             label4.TabIndex = 5;
             label4.Text = "Username:";
             // 
-            // loginResult
+            // disconnectButton
             // 
-            loginResult.AutoSize = true;
-            loginResult.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            loginResult.ForeColor = Color.Red;
-            loginResult.Location = new Point(112, 140);
-            loginResult.Name = "loginResult";
-            loginResult.Size = new Size(61, 25);
-            loginResult.TabIndex = 13;
-            loginResult.Text = "Failed";
-            loginResult.TextAlign = ContentAlignment.TopCenter;
-            loginResult.Visible = false;
+            disconnectButton.ForeColor = Color.Red;
+            disconnectButton.Location = new Point(12, 270);
+            disconnectButton.Name = "disconnectButton";
+            disconnectButton.Size = new Size(89, 30);
+            disconnectButton.TabIndex = 7;
+            disconnectButton.Text = "Disconnect";
+            disconnectButton.UseVisualStyleBackColor = true;
+            disconnectButton.Click += disconnectButton_Click;
             // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(261, 312);
+            Controls.Add(disconnectButton);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Login";
             Text = "Login";
+            FormClosed += Login_FormClosed;
             tabControl1.ResumeLayout(false);
             loginTab.ResumeLayout(false);
             loginTab.PerformLayout();
@@ -266,5 +280,6 @@
         private Label label4;
         internal Label createAccountResult;
         internal Label loginResult;
+        private Button disconnectButton;
     }
 }

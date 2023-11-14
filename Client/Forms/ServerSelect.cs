@@ -26,5 +26,10 @@ namespace Client.Forms
             formManager.globalManager.networkManager.targetIP = ipBox.Text;
             formManager.globalManager.networkManager.ConnectToServer();
         }
+
+        private void ServerSelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            formManager.globalManager.ExitApp();
+        }
     }
 }

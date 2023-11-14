@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using Game.Networking;
+using Server.Classes.Account;
 
 namespace Server.Classes.Network
 {
@@ -23,6 +24,8 @@ namespace Server.Classes.Network
         {
             List<string> args = ParseArgs(inData.args);
 
+            Console.WriteLine($"Receieved protocol {inData.protocol} with args: {inData.args}");
+
             switch (inData.protocol)
             {
                 // Handshake handling
@@ -34,7 +37,10 @@ namespace Server.Classes.Network
                 // Login handling
                 case "login":
                     // CHeck if login was correct
-                    if (networkManager.globalManager.authManager.AttemptLogin(args[0], args[1]))
+                    string comparingUsername = args[0];
+                    string comparingPassword = args[1];
+                    bool loginSuccess = networkManager.globalManager.authManager.AttemptLogin(comparingUsername, comparingPassword);
+                    if (loginSuccess)
                     {
                         // If correct respond to client with successful attempt
                         networkManager.SendClientMessage(inClient, "login", "success");

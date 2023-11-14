@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            progressBar1 = new ProgressBar();
-            label1 = new Label();
+            loadingBar = new ProgressBar();
+            displayLabel = new Label();
             SuspendLayout();
             // 
-            // progressBar1
+            // loadingBar
             // 
-            progressBar1.Location = new Point(12, 46);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(276, 23);
-            progressBar1.TabIndex = 0;
+            loadingBar.Location = new Point(12, 46);
+            loadingBar.Name = "loadingBar";
+            loadingBar.Size = new Size(276, 23);
+            loadingBar.TabIndex = 0;
+            loadingBar.Value = 25;
             // 
-            // label1
+            // displayLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(160, 21);
-            label1.TabIndex = 1;
-            label1.Text = "Loading NAMEHERE...";
+            displayLabel.AutoSize = true;
+            displayLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            displayLabel.Location = new Point(12, 9);
+            displayLabel.Name = "displayLabel";
+            displayLabel.Size = new Size(160, 21);
+            displayLabel.TabIndex = 1;
+            displayLabel.Text = "Loading NAMEHERE...";
             // 
             // FormManager
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(300, 150);
-            Controls.Add(label1);
-            Controls.Add(progressBar1);
+            Controls.Add(displayLabel);
+            Controls.Add(loadingBar);
             Name = "FormManager";
             Text = "Loading";
             ResumeLayout(false);
@@ -64,7 +65,7 @@
 
         #endregion
 
-        private ProgressBar progressBar1;
-        private Label label1;
+        private ProgressBar loadingBar;
+        private Label displayLabel;
     }
 }

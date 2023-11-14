@@ -71,6 +71,7 @@
             MinimizeBox = false;
             Name = "ServerSelect";
             Text = "Connect";
+            FormClosed += ServerSelect_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

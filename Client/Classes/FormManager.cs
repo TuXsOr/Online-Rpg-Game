@@ -17,6 +17,7 @@ namespace Client.Classes
         // Constructor | Update local globalManager reference and init forms
         public FormManager(GlobalManager inManager)
         {
+            InitializeComponent();
             globalManager = inManager;
             this.Show();
             this.Hide();
@@ -54,10 +55,19 @@ namespace Client.Classes
             for (int i = 0; i < forms.Count; i++) { forms[i].Hide(); }
         }
 
+
+        // Showing loading window
         public void ShowLoadingWindow()
         {
             CloseAllForms();
+            loginForm!.Reset();
             this.Show();
+        }
+
+        public void UpdateLoadingMenu(string displayText, int loadingProgress)
+        {
+            displayLabel.Text = displayText;
+            loadingBar.Value = loadingProgress;
         }
     }
 }
