@@ -1,6 +1,6 @@
-﻿namespace Client.Forms
+﻿namespace Client.Classes
 {
-    partial class Login
+    partial class FormManager
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,14 @@
         {
             SuspendLayout();
             // 
-            // Login
+            // FormManager
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(351, 247);
-            Name = "Login";
-            Text = "Login";
+            ClientSize = new Size(351, 150);
+            Name = "FormManager";
+            Text = "Loading";
+            Load += FormManager_Load;
             ResumeLayout(false);
         }
 

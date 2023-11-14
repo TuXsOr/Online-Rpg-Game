@@ -25,6 +25,28 @@ namespace Client.Classes
                         break;
                     } else { break; }
 
+                case "login":
+                    if (args[0] == "request") // If server is requesting login then switch to login screen
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.SwitchForm("login");
+                        }));
+                        break;
+                    }
+                    else if (args[0] == "success")
+                    {
+                        globalManager.networkManager.MessageServer("characterrequest", args[1]);
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.ShowLoadingWindow();
+                        }));
+                        // Add additional stuff for showing loading bar and window
+
+                        break;
+                    }
+                    break;
+
                 default:
                     Debug.WriteLine($"Recieved unknown protocol: {inProtocol}");
                     break;

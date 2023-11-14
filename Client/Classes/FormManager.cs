@@ -1,8 +1,9 @@
 ﻿using Client.Forms;
+using System.Windows.Forms;
 
 namespace Client.Classes
 {
-    internal class FormManager
+    internal partial class FormManager : Form
     {
         internal GlobalManager globalManager;
 
@@ -14,7 +15,14 @@ namespace Client.Classes
 
 
         // Constructor | Update local globalManager reference and init forms
-        public FormManager(GlobalManager inManager) { globalManager = inManager; InitForms(); forms[0].Show(); }
+        public FormManager(GlobalManager inManager)
+        {
+            globalManager = inManager;
+            this.Show();
+            this.Hide();
+            InitForms();
+            forms[0].Show();
+        }
 
 
         // Initializing all the needed forms
@@ -28,13 +36,33 @@ namespace Client.Classes
         // Switching forms
         public void SwitchForm(string newForm)
         {
+            switch (newForm)
+            {
+                case "login":
+                    CloseAllForms();
+                    loginForm!.Show();
+                    break;
 
+                default:
+                    break;
+            }
         }
 
         // Closes All forms
         public void CloseAllForms()
         {
             for (int i = 0; i < forms.Count; i++) { forms[i].Hide(); }
+        }
+
+        public void ShowLoadingWindow()
+        {
+            CloseAllForms();
+            this.Show();
+        }
+
+        private void FormManager_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
