@@ -17,12 +17,19 @@ namespace Server.Classes.Auth
         internal bool AttemptLogin(string username, string password)
         {
             // Get user account info
-            UserAccount targetAccount = globalManager.fileManager.GetAccountInfo(username)!;
+            UserAccount targetAccount = globalManager.fileManager.GetAccountInfo(username.ToLower())!;
+
+            Console.WriteLine($"Attempted login for user {username.ToLower()} using `{password}` as a password");
 
             // Check if target account exists
             if (targetAccount != null)
             {
-                return targetAccount.password == password;
+                Console.WriteLine(targetAccount.password == password);
+                if (targetAccount.password == password)
+                {
+                    return true;
+                }
+                else { return false; }
             }
             // If null, account does not exist
             else { return false; }

@@ -34,7 +34,7 @@ namespace Server.Classes.Network
                 // Login handling
                 case "login":
                     // CHeck if login was correct
-                    if (networkManager.globalManager.authManager.AttemptLogin(args[0], args[2]))
+                    if (networkManager.globalManager.authManager.AttemptLogin(args[0], args[1]))
                     {
                         // If correct respond to client with successful attempt
                         networkManager.SendClientMessage(inClient, "login", "success");

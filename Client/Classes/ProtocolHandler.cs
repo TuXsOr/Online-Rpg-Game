@@ -26,26 +26,60 @@ namespace Client.Classes
                     } else { break; }
 
                 case "login":
-                    if (args[0] == "request") // If server is requesting login then switch to login screen
+                    switch (args[0].ToLower())
                     {
-                        globalManager.formManager.Invoke(new Action(() =>
-                        {
-                            globalManager.formManager.SwitchForm("login");
-                        }));
-                        break;
-                    }
-                    else if (args[0] == "success")
-                    {
-                        globalManager.networkManager.MessageServer("characterrequest", args[1]);
-                        globalManager.formManager.Invoke(new Action(() =>
-                        {
-                            globalManager.formManager.ShowLoadingWindow();
-                        }));
-                        // Add additional stuff for showing loading bar and window
+                        case "request":
+                            globalManager.formManager.Invoke(new Action(() =>
+                            {
+                                globalManager.formManager.SwitchForm("login");
+                            }));
+                            break;
 
+                        case "success":
+                            globalManager.networkManager.MessageServer("characterrequest", args[1]);
+                            globalManager.formManager.Invoke(new Action(() =>
+                            {
+                                globalManager.formManager.ShowLoadingWindow();
+                            }));
+                            // Add additional stuff for showing loading bar and window
+
+                            break;
+
+                        case "failed":
+                            globalManager.formManager.Invoke(new Action(() =>
+                            {
+                                globalManager.formManager.loginForm!.loginResult.Text = "Failed!";
+                                globalManager.formManager.loginForm!.loginResult.ForeColor = Color.Red;
+                                globalManager.formManager.loginForm.loginResult.Visible = true;
+                                globalManager.formManager.loginForm!.Reset();
+                            }));
+                            break;
+                    } break;
+                case "createaccount":
+                    if (args[0] == "True")
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.loginForm!.createAccountResult.Text = "Successful!";
+                            globalManager.formManager.loginForm!.createAccountResult.ForeColor = Color.Green;
+                            globalManager.formManager.loginForm!.createAccountResult.Visible = true;
+                            globalManager.formManager.loginForm!.Reset();
+
+                        }));
                         break;
                     }
-                    break;
+                    else
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.loginForm!.createAccountResult.Text = "Failed!";
+                            globalManager.formManager.loginForm!.createAccountResult.ForeColor = Color.Red;
+                            globalManager.formManager.loginForm!.createAccountResult.Visible = true;
+                            globalManager.formManager.loginForm!.Reset();
+
+                        }));
+                        break;
+                    }
 
                 default:
                     Debug.WriteLine($"Recieved unknown protocol: {inProtocol}");

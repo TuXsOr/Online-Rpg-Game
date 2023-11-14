@@ -100,7 +100,7 @@ namespace Server.Classes
         // Get user account data from username
         public UserAccount? GetAccountInfo(string username)
         {
-            string filepath = $"{serverConfig.serverDataPath}\\{username}.json";
+            string filepath = $"{serverConfig.serverDataPath}\\UserAccounts\\{username.ToLower()}.json";
             
             // Check if account exists
             if (File.Exists(filepath))

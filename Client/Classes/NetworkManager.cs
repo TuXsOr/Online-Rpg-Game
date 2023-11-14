@@ -4,6 +4,7 @@ using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
 using Game.Networking;
+using System.Security.Cryptography;
 
 namespace Client.Classes
 {
@@ -107,6 +108,30 @@ namespace Client.Classes
             }
             else { Debug.WriteLine("Client Stream was null"); }
             
+        }
+
+        public void AttemptLogin(string username, string password)
+        {
+            string hashedPassword = HashString(password);
+            MessageServer("login", $"{username.ToLower()}:{hashedPassword}");
+
+        }
+
+        public void CreateAccount(string username, string password, string email)
+        {
+            string hashedPassword = HashString(password);
+            MessageServer("createaccount", $"{username.ToLower()}:{hashedPassword}:{email}");
+        }
+
+        public string HashString(string inString)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inData = Encoding.UTF8.GetBytes(inString);
+                byte[] hashBytes = sha256.ComputeHash(inData);
+
+                return BitConverter.ToString(hashBytes);
+            }
         }
     }
 }

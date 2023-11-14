@@ -8,7 +8,7 @@ namespace Client.Classes
         internal GlobalManager globalManager;
 
         private ServerSelect? serverSelectForm;
-        private Login? loginForm;
+        internal Login? loginForm;
         private GameWindow? gameWindowForm;
 
         private List<Form> forms = new List<Form>();
@@ -58,11 +58,6 @@ namespace Client.Classes
         {
             CloseAllForms();
             this.Show();
-        }
-
-        private void FormManager_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
