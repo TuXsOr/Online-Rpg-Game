@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Server.Classes.Account;
 using Server.Classes.Game;
-using System.Diagnostics;
 using System.Text.Json;
 
 namespace Server.Classes
@@ -89,25 +88,6 @@ namespace Server.Classes
                 Console.WriteLine($"Wrote to {filepath} for {newData.name}");
             }
             catch (Exception ex) { Console.WriteLine(ex); }
-        }
-
-
-        // Load character data
-        public Character? GetCharacter(string inName)
-        {
-            string filepath = $"{serverConfig.serverDataPath}\\Characters\\{inName}.json";
-
-            if (File.Exists(filepath))
-            {
-                try
-                {
-                    string textRead = File.ReadAllText(filepath);
-                    Character character = JsonConvert.DeserializeObject<Character>(textRead)!;
-                    return character;
-                }
-                catch (Exception ex) { Debug.WriteLine($"Error Occurred in file Manager!\nError Message:\n{ex}"); return null; }
-            }
-            else { return null; }
         }
 
 

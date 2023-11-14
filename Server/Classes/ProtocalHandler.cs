@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net;
+using System.Net.Sockets;
 using Game.Networking;
-using Server.Classes.Account;
-using Server.Classes.Game;
 
 namespace Server.Classes.Network
 {
@@ -35,10 +34,10 @@ namespace Server.Classes.Network
                 // Login handling
                 case "login":
                     // CHeck if login was correct
-                    if (networkManager.globalManager.authManager.AttemptLogin(args[0], args[1]))
+                    if (networkManager.globalManager.authManager.AttemptLogin(args[0], args[2]))
                     {
                         // If correct respond to client with successful attempt
-                        networkManager.SendClientMessage(inClient, "login", $"success:{args[0]}");
+                        networkManager.SendClientMessage(inClient, "login", "success");
 
                         // Update the connected client's set username for future use
                         inClient.username = args[0];
@@ -60,17 +59,7 @@ namespace Server.Classes.Network
                     break;
 
                 case "characterrequest":
-                    int characterIndex = int.Parse(args[0]);
-                    UserAccount curUser = networkManager.globalManager.fileManager.GetAccountInfo(args[1])!;
-
-                    Character targetChar = networkManager.globalManager.fileManager.GetCharacter(curUser.characters[characterIndex])!;
-                    if (targetChar != null)
-                    {
-                        string jsonCharData = JsonConvert.SerializeObject(targetChar);
-                        networkManager.SendClientMessage(inClient, "characterdata", jsonCharData);
-
-                        break;
-                    }
+                    // Add some code to get and send the character data
                     break;
 
                 default:

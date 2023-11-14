@@ -23,7 +23,6 @@ namespace Client.Forms
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            connectButton.Enabled = false;
             formManager.globalManager.networkManager.targetIP = ipBox.Text;
             formManager.globalManager.networkManager.ConnectToServer();
         }
