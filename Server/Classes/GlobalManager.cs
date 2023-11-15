@@ -1,5 +1,6 @@
 ﻿using Server.Classes.Account;
 using Server.Classes.Auth;
+using Server.Classes.Game;
 using Server.Classes.Network;
 
 namespace Server.Classes
@@ -12,6 +13,7 @@ namespace Server.Classes
         internal FileManager fileManager;
         internal NetworkManager networkManager;
         internal AuthManager authManager;
+        internal WorldManager worldManager;
 
         // During Construction create and store references to other needed manager classes
         public GlobalManager()
@@ -20,6 +22,7 @@ namespace Server.Classes
             fileManager = new FileManager();
             networkManager = new NetworkManager(this);
             authManager = new AuthManager(this);
+            worldManager = new WorldManager(this);
         }
 
         public void StartServer()

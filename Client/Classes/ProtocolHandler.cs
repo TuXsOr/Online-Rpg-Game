@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Game.Classes;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Client.Classes
 {
@@ -18,6 +20,7 @@ namespace Client.Classes
 
             switch (inProtocol)
             {
+                // Simple handshake
                 case "handshake":
                     if (args[0] == "start")
                     {
@@ -25,9 +28,72 @@ namespace Client.Classes
                         break;
                     } else { break; }
 
+                // Receiving world data
+                case "worlddata":
+                    if (inArgs != null || inArgs != string.Empty)
+                    {
+                        World? inWorld = JsonConvert.DeserializeObject<World>(inArgs!);
+                        
+                        if (inWorld != null)
+                        {
+                            globalManager.formManager.Invoke(new Action(() =>
+                            {
+                                globalManager.formManager.UpdateLoadingMenu("Finished Loading!", 100);
+                                Thread.Sleep(100);
+                                globalManager.formManager.Hide();
+                                globalManager.formManager.gameWindowForm!.UpdateCharacterData();
+                                globalManager.formManager.gameWindowForm.UpdateWorldData();
+                                globalManager.formManager.SwitchForm("gamewindow");
+                            }));
+                        }
+                        else
+                        {
+                            globalManager.formManager.Invoke(new Action(() =>
+                            {
+                                globalManager.formManager.Hide();
+                                globalManager.formManager.SwitchForm("Login");
+                                globalManager.formManager.loginForm!.Reset();
+                            }));
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                // Receiving Character Data
+                case "chardata":
+                    if (inArgs != "failed")
+                    {
+                        Character inCharacter = JsonConvert.DeserializeObject<Character>(inArgs)!;
+
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.worldManager.character = inCharacter;
+                            
+                            globalManager.formManager.UpdateLoadingMenu("Requesting World Data...", 75);
+                            globalManager.networkManager.MessageServer("worldrequest", string.Empty);
+                        }));
+
+                        break;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Server failed to find character details");
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.formManager.UpdateLoadingMenu("Failed to retrieve character Data", 0);
+                            globalManager.formManager.loadingBar.Visible = false;
+                        }));
+                        break;
+                    }
+
+                // Logging into an account
                 case "login":
                     switch (args[0].ToLower())
                     {
+                        // Show login when a login is requested
                         case "request":
                             globalManager.formManager.Invoke(new Action(() =>
                             {
@@ -35,17 +101,25 @@ namespace Client.Classes
                             }));
                             break;
 
+                        // Successful Login
                         case "success":
-                            globalManager.networkManager.MessageServer("characterrequest", args[0]);
+                            
                             globalManager.formManager.Invoke(new Action(() =>
                             {
-                                globalManager.formManager.UpdateLoadingMenu("Retrieveing Character Data...", 0);
+                                // Initial setup and display of loading window
+                                globalManager.formManager.UpdateLoadingMenu("Logged in...", 0);
                                 globalManager.formManager.ShowLoadingWindow();
+
+                                // Update loading UI and request character data
+                                globalManager.formManager.UpdateLoadingMenu("Retrieveing Character Data...", 25);
+                                globalManager.networkManager.MessageServer("characterrequest", args[1]);
+
                             }));
                             // Add additional stuff for showing loading bar and window
 
                             break;
 
+                        // Failed Login
                         case "failed":
                             globalManager.formManager.Invoke(new Action(() =>
                             {
@@ -56,6 +130,8 @@ namespace Client.Classes
                             }));
                             break;
                     } break;
+
+                // Creating accounts
                 case "createaccount":
                     if (args[0] == "True")
                     {

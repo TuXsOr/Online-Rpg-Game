@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Server.Classes.Account;
-using Server.Classes.Game;
+using Game.Classes;
 using System.Text.Json;
+using System.Text;
 
 namespace Server.Classes
 {
@@ -51,6 +52,22 @@ namespace Server.Classes
         }
 
 
+        /////////////////////////////////
+        // World Data Handling
+        /////////////////////////////////
+
+        public World? GetWorldData(string inWorldName)
+        {
+            string filepath = $"{serverConfig.serverDataPath}\\World\\{inWorldName}.world";
+            if (File.Exists(filepath))
+            {
+                string readFile = File.ReadAllText(filepath);
+                World? targetWorld = JsonConvert.DeserializeObject<World>(readFile);
+                return targetWorld;
+            }
+            else { return null; }
+        }
+
 
         /////////////////////////////////
         // Character Data Handleing
@@ -91,6 +108,25 @@ namespace Server.Classes
         }
 
 
+        // Get Character Data
+        public Character? GetCharacter(string inName)
+        {
+            string filepath = $"{serverConfig.serverDataPath}\\Characters\\{inName.ToLower()}.json";
+
+            try
+            {
+                string readText = File.ReadAllText(filepath);
+                Character? character = JsonConvert.DeserializeObject<Character>(readText);
+                return character;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to retrieve character: {inName}.json\nError Message:\n{ex}");
+                return null;
+            }
+        }
+
+
 
         /////////////////////////////////
         // User Data Handling
@@ -105,7 +141,6 @@ namespace Server.Classes
             // Check if account exists
             if (File.Exists(filepath))
             {
-                Console.WriteLine("User File Exists");
                 string fileText = File.ReadAllText(filepath);
                 UserAccount targetAccount = JsonConvert.DeserializeObject<UserAccount>(fileText)!;
                 return targetAccount;

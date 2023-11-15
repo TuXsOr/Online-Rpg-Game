@@ -16,6 +16,6 @@ namespace Server.Classes
         public int startingMoney { get; set; } = 0;
         public List<string> startingItems { get; set; } = new List<string>();
         public string serverDataPath { get; set; } = $"{Directory.GetCurrentDirectory()}\\Data";
-        public string backupKey { get; set; } = "replacethis";
+        public string worldName { get; set; } = "Default";
     }
 }

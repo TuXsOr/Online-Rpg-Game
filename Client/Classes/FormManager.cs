@@ -9,7 +9,7 @@ namespace Client.Classes
 
         private ServerSelect? serverSelectForm;
         internal Login? loginForm;
-        private GameWindow? gameWindowForm;
+        internal GameWindow? gameWindowForm;
 
         private List<Form> forms = new List<Form>();
 
@@ -31,7 +31,7 @@ namespace Client.Classes
         {
             serverSelectForm = new ServerSelect(this); forms.Add(serverSelectForm);
             loginForm = new Login(this); forms.Add(loginForm);
-            gameWindowForm = new GameWindow();
+            gameWindowForm = new GameWindow(globalManager.worldManager);
         }
 
         // Switching forms
@@ -42,6 +42,11 @@ namespace Client.Classes
                 case "login":
                     CloseAllForms();
                     loginForm!.Show();
+                    break;
+
+                case "gamewindow":
+                    CloseAllForms();
+                    gameWindowForm!.Show();
                     break;
 
                 default:

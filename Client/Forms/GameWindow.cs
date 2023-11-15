@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Classes.Game;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,23 @@ using System.Windows.Forms;
 
 namespace Client.Forms
 {
-    public partial class GameWindow : Form
+    internal partial class GameWindow : Form
     {
-        public GameWindow()
+        WorldManager worldManager;
+        public GameWindow(WorldManager inManager)
         {
             InitializeComponent();
+            worldManager = inManager;
+        }
+
+        public void UpdateCharacterData()
+        {
+
+        }
+
+        public void UpdateWorldData()
+        {
+
         }
     }
 }

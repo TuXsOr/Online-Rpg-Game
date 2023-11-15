@@ -54,7 +54,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(300, 150);
+            ClientSize = new Size(300, 78);
             Controls.Add(displayLabel);
             Controls.Add(loadingBar);
             Name = "FormManager";
@@ -64,8 +64,7 @@
         }
 
         #endregion
-
-        private ProgressBar loadingBar;
         private Label displayLabel;
+        internal ProgressBar loadingBar;
     }
 }

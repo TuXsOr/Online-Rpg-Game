@@ -17,18 +17,21 @@ namespace Server.Classes.Auth
         // Login Handling
         internal bool AttemptLogin(string username, string password)
         {
-            Console.WriteLine($"Attempted Login for {username}");
             UserAccount targetAccount = globalManager.fileManager.GetAccountInfo(username)!;
 
             // Check if target account exists
             if (targetAccount != null)
             {
-                Console.WriteLine(targetAccount.password == password);
                 if (targetAccount.password == password)
                 {
+                    Console.WriteLine($"{DateTime.Now}: {username} login attempt successful");
                     return true;
                 }
-                else { return false; }
+                else
+                {
+                    Console.WriteLine($"{DateTime.Now}: {username} login attempt failed");
+                    return false;
+                }
             }
             // If null, account does not exist
             else

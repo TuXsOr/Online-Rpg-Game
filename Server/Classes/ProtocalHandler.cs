@@ -1,7 +1,10 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using Game.Networking;
+using Newtonsoft.Json;
 using Server.Classes.Account;
+using Game.Classes;
 
 namespace Server.Classes.Network
 {
@@ -24,8 +27,6 @@ namespace Server.Classes.Network
         {
             List<string> args = ParseArgs(inData.args);
 
-            Console.WriteLine($"Receieved protocol {inData.protocol} with args: {inData.args}");
-
             switch (inData.protocol)
             {
                 // Handshake handling
@@ -43,10 +44,10 @@ namespace Server.Classes.Network
                     if (loginSuccess)
                     {
                         // If correct respond to client with successful attempt
-                        networkManager.SendClientMessage(inClient, "login", "success");
+                        networkManager.SendClientMessage(inClient, "login", $"success:{comparingUsername}");
 
                         // Update the connected client's set username for future use
-                        inClient.username = args[0];
+                        inClient.username = comparingUsername;
                         networkManager.UpdateConnectedClient(inClient.clientID, inClient);
                         break;
                     }
@@ -65,7 +66,24 @@ namespace Server.Classes.Network
                     break;
 
                 case "characterrequest":
-                    // Add some code to get and send the character data
+                    Character? outCharacter = networkManager.globalManager.fileManager.GetCharacter(args[0]);
+
+                    if (outCharacter != null)
+                    {
+                        string charJson = JsonConvert.SerializeObject(outCharacter);
+                        networkManager.SendClientMessage(inClient, "chardata", charJson);
+
+                        break;
+                    }
+                    else
+                    {
+                        networkManager.SendClientMessage(inClient, "chardata", "failed");
+                        break;
+                    }
+
+                case "worldrequest":
+                    string worldString = JsonConvert.SerializeObject(networkManager.globalManager.worldManager.world);
+                    networkManager.SendClientMessage(inClient, "worlddata", worldString);
                     break;
 
                 default:
