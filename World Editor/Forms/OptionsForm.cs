@@ -22,34 +22,34 @@
         private void sizeXDown_Click(object sender, EventArgs e)
         {
             sizeX--;
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
 
         private void sizeXUp_Click(object sender, EventArgs e)
         {
             sizeX++;
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
 
         private void sizeYDown_Click(object sender, EventArgs e)
         {
             sizeY--;
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
 
         private void sizeYUp_Click(object sender, EventArgs e)
         {
             sizeY++;
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
 
         private void GenerateButton_Click(object sender, EventArgs e)
         {
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
 
@@ -62,14 +62,14 @@
         {
             if (worldNameBox.Text == string.Empty)
             {
-                parent.globalManager.SaveMap("World");
+                parent.globalManager.generator.SaveMap("World");
             }
-            else { parent.globalManager.SaveMap(worldNameBox.Text); }
+            else { parent.globalManager.generator.SaveMap(worldNameBox.Text); }
         }
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            parent.globalManager.generator.GenerateWorld(sizeX, sizeY);
             UpdateUI();
         }
     }

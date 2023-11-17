@@ -15,7 +15,7 @@ namespace Server.Classes.Network
         // Setup default server configuration
         public IPAddress serverIP = IPAddress.Parse("0.0.0.0");
         public int serverPort = 80;
-        private int bufferSize = 1024;
+        private int bufferSize = 10240;
         private ProtocalHandler protocalHandler;
 
         // Declare the TCP listener
