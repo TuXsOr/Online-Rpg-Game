@@ -3,12 +3,10 @@
     public partial class TileControl : UserControl
     {
         public WorldEditorForm editor;
-        private char? lastValidChar = null;
 
-        int posX;
-        int posY;
+        internal int posX;
+        internal int posY;
 
-        bool initilizing = true;
 
         public TileControl(char displayChar, int posX, int posY, WorldEditorForm editor)
         {
@@ -17,23 +15,27 @@
             this.editor = editor;
             this.posX = posX;
             this.posY = posY;
-            charBox.Text = displayChar.ToString();
-            initilizing = false;
+            this.displayChar.Text = displayChar.ToString();
+            this.BackColor = Color.DarkGreen;
 
         }
 
-        private void chatBox_TextChanged(object sender, EventArgs e)
+        private void TileControl_Click(object sender, EventArgs e)
         {
-            if (!initilizing)
-            {
-                if (charBox.Text != string.Empty || charBox.Text != null)
-                {
-                    char newChar = (char)charBox.Text[0];
-                    lastValidChar = newChar;
-                    editor.globalManager.world!.worldTiles[posX, posY].displayChar = newChar;
-                }
-                else { charBox.Text = lastValidChar.ToString(); }
-            }
+            Selected();
+            TileProperties properties = new TileProperties(this);
+            properties.InitDisplay(editor.globalManager.world!.worldTiles[posX, posY]);
+            properties.Show();
+        }
+
+        public void Deselect()
+        {
+            BackColor = Color.DarkGreen;
+        }
+
+        public void Selected()
+        {
+            BackColor = Color.Green;
         }
     }
 }

@@ -66,5 +66,11 @@
             }
             else { parent.globalManager.SaveMap(worldNameBox.Text); }
         }
+
+        private void OptionsForm_Load(object sender, EventArgs e)
+        {
+            parent.globalManager.GenerateWorld(sizeX, sizeY);
+            UpdateUI();
+        }
     }
 }

@@ -28,32 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            charBox = new TextBox();
+            displayChar = new Label();
             SuspendLayout();
             // 
-            // charBox
+            // displayChar
             // 
-            charBox.Location = new Point(3, 3);
-            charBox.Name = "charBox";
-            charBox.Size = new Size(26, 23);
-            charBox.TabIndex = 0;
-            charBox.TextChanged += chatBox_TextChanged;
+            displayChar.AutoSize = true;
+            displayChar.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            displayChar.ForeColor = Color.White;
+            displayChar.Location = new Point(0, 0);
+            displayChar.Name = "displayChar";
+            displayChar.Size = new Size(14, 13);
+            displayChar.TabIndex = 0;
+            displayChar.Text = "#";
             // 
             // TileControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Cyan;
-            Controls.Add(charBox);
+            BackColor = Color.DarkGreen;
+            Controls.Add(displayChar);
+            Cursor = Cursors.Hand;
             ForeColor = SystemColors.ControlText;
             Name = "TileControl";
             Size = new Size(32, 32);
+            Click += TileControl_Click;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox charBox;
+        internal Label displayChar;
     }
 }

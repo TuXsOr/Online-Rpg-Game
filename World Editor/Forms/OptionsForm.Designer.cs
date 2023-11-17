@@ -44,7 +44,7 @@
             // 
             // SaveButton
             // 
-            SaveButton.Location = new Point(6, 510);
+            SaveButton.Location = new Point(6, 133);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(116, 46);
             SaveButton.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             // GenerateButton
             // 
-            GenerateButton.Location = new Point(128, 510);
+            GenerateButton.Location = new Point(128, 133);
             GenerateButton.Name = "GenerateButton";
             GenerateButton.Size = new Size(124, 46);
             GenerateButton.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             // worldNameBox
             // 
-            worldNameBox.Location = new Point(6, 481);
+            worldNameBox.Location = new Point(6, 104);
             worldNameBox.Name = "worldNameBox";
             worldNameBox.PlaceholderText = "World";
             worldNameBox.Size = new Size(246, 23);
@@ -73,7 +73,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 463);
+            label1.Location = new Point(6, 86);
             label1.Name = "label1";
             label1.Size = new Size(74, 15);
             label1.TabIndex = 3;
@@ -124,7 +124,7 @@
             // sizeYUp
             // 
             sizeYUp.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            sizeYUp.Location = new Point(76, 115);
+            sizeYUp.Location = new Point(198, 36);
             sizeYUp.Name = "sizeYUp";
             sizeYUp.Size = new Size(32, 32);
             sizeYUp.TabIndex = 11;
@@ -136,7 +136,7 @@
             // 
             sizeYDisplay.AutoSize = true;
             sizeYDisplay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            sizeYDisplay.Location = new Point(42, 121);
+            sizeYDisplay.Location = new Point(164, 42);
             sizeYDisplay.Name = "sizeYDisplay";
             sizeYDisplay.Size = new Size(28, 21);
             sizeYDisplay.TabIndex = 10;
@@ -145,7 +145,7 @@
             // sizeYDown
             // 
             sizeYDown.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            sizeYDown.Location = new Point(6, 115);
+            sizeYDown.Location = new Point(128, 36);
             sizeYDown.Name = "sizeYDown";
             sizeYDown.Size = new Size(32, 32);
             sizeYDown.TabIndex = 9;
@@ -157,7 +157,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(6, 88);
+            label4.Location = new Point(128, 9);
             label4.Name = "label4";
             label4.Size = new Size(99, 25);
             label4.TabIndex = 8;
@@ -167,7 +167,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(258, 568);
+            ClientSize = new Size(258, 185);
             Controls.Add(sizeYUp);
             Controls.Add(sizeYDisplay);
             Controls.Add(sizeYDown);
@@ -183,6 +183,7 @@
             Name = "OptionsForm";
             Text = "OptionsForm";
             FormClosed += OptionsForm_FormClosed;
+            Load += OptionsForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
