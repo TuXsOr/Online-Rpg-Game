@@ -58,14 +58,23 @@ namespace Server.Classes
 
         public World? GetWorldData(string inWorldName)
         {
-            string filepath = $"{serverConfig.serverDataPath}\\World\\{inWorldName}.world";
-            if (File.Exists(filepath))
+            try
             {
-                string readFile = File.ReadAllText(filepath);
-                World? targetWorld = JsonConvert.DeserializeObject<World>(readFile);
-                return targetWorld;
+                string filepath = $"{serverConfig.serverDataPath}\\World\\{inWorldName}.world";
+                if (File.Exists(filepath))
+                {
+                    string readFile = File.ReadAllText(filepath);
+                    World? targetWorld = JsonConvert.DeserializeObject<World>(readFile);
+                    Console.WriteLine($"Retrieved world data for {inWorldName}.");
+                    return targetWorld;
+                }
+                else { return null; }
             }
-            else { return null; }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error when loading {inWorldName}.world\nError Message:\n{ex}");
+                return null;
+            }
         }
 
 

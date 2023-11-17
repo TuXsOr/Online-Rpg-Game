@@ -15,7 +15,7 @@ namespace Client.Classes
 
         // Network Connection Properties
         internal string targetIP = "127.0.0.1";
-        internal int targetPort = 80;
+        internal int targetPort = 8080;
         internal int bufferSize = 1024;
 
         // Client and stream declerations

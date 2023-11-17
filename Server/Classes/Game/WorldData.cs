@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.Classes
+﻿namespace Game.Classes
 {
     [Serializable]
     internal class Entity
@@ -27,8 +21,7 @@ namespace Game.Classes
     {
         public char displayChar { get; set; } = '.';
         public List<string> towns { get; set; } = new List<string>();
-        public List<Entity> entities { get; set; } = new List<Entity>();
-
+        public List<string> flags { get; set; } = new List<string>();
     }
 
     [Serializable]
@@ -36,6 +29,7 @@ namespace Game.Classes
     {
         public string name { get; set; } = "Dimmadome";
         public string worldDescription { get; set; } = "A default world";
-        public Tile[,] world { get; set; } = new Tile[10,10];
+        public Tile[,] worldTiles { get; set; } = new Tile[10, 10];
+        public List<Entity> entities { get; set; } = new List<Entity>();
     }
 }

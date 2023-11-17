@@ -1,13 +1,13 @@
 ﻿namespace Game.Classes
 {
     [Serializable]
-    internal class Entity
+    public class Entity
     {
         public char displayChar { get; set; } = 'o';
     }
 
     [Serializable]
-    internal class Character : Entity
+    public class Character : Entity
     {
         public string name { get; set; } = string.Empty;
         public int level { get; set; } = 1;
@@ -17,7 +17,7 @@
     }
 
     [Serializable]
-    internal class Tile
+    public class Tile
     {
         public char displayChar { get; set; } = '.';
         public List<string> towns { get; set; } = new List<string>();
@@ -25,7 +25,7 @@
     }
 
     [Serializable]
-    internal class World
+    public class World
     {
         public string name { get; set; } = "Dimmadome";
         public string worldDescription { get; set; } = "A default world";
