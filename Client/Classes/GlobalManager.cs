@@ -8,7 +8,7 @@ namespace Client.Classes
         internal FileManager fileManager = new FileManager();
         internal NetworkManager networkManager;
         internal ProtocolHandler protocolHandler;
-        internal WorldManager worldManager;
+        public WorldManager worldManager;
 
         // Constructor
         public GlobalManager()

@@ -47,10 +47,10 @@ namespace World_Editor.Classes
         }
 
         // Saving the map to a file
-        public void SaveMap()
+        public void SaveMap(string worldName)
         {
             string mapDataString = JsonConvert.SerializeObject(world, Formatting.Indented);
-            File.WriteAllText($"{Directory.GetCurrentDirectory()}\\World.world", mapDataString);
+            File.WriteAllText($"{Directory.GetCurrentDirectory()}\\{worldName}.world", mapDataString);
         }
     }
 }

@@ -32,29 +32,26 @@ namespace Client.Classes
                 case "worlddata":
                     if (inArgs != null || inArgs != string.Empty)
                     {
-                        World? inWorld = JsonConvert.DeserializeObject<World>(inArgs!);
-                        
-                        if (inWorld != null)
-                        {
                             globalManager.formManager.Invoke(new Action(() =>
                             {
-                                globalManager.formManager.UpdateLoadingMenu("Finished Loading!", 100);
-                                Thread.Sleep(100);
-                                globalManager.formManager.Hide();
-                                globalManager.formManager.gameWindowForm!.UpdateCharacterData();
-                                globalManager.formManager.gameWindowForm.UpdateWorldData();
-                                globalManager.formManager.SwitchForm("gamewindow");
+                                World? inWorld = JsonConvert.DeserializeObject<World>(inArgs!);
+
+                                if (inWorld != null)
+                                {
+                                    globalManager.formManager.UpdateLoadingMenu("Finished Loading!", 100);
+                                    globalManager.worldManager.UpdateWorldData(inWorld);
+                                    Thread.Sleep(100);
+                                    globalManager.formManager.Hide();
+                                    globalManager.formManager.SwitchForm("gamewindow");
+                                }
+                                else
+                                {
+                                    globalManager.formManager.UpdateLoadingMenu("Failed to load World Data", 0);
+                                    globalManager.formManager.Hide();
+                                    globalManager.formManager.SwitchForm("Login");
+                                    globalManager.formManager.loginForm!.Reset();
+                                }
                             }));
-                        }
-                        else
-                        {
-                            globalManager.formManager.Invoke(new Action(() =>
-                            {
-                                globalManager.formManager.Hide();
-                                globalManager.formManager.SwitchForm("Login");
-                                globalManager.formManager.loginForm!.Reset();
-                            }));
-                        }
                         break;
                     }
                     else

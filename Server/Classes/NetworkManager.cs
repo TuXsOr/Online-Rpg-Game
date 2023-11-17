@@ -137,6 +137,7 @@ namespace Server.Classes.Network
                         // If the incoming data is not null
                         if (inData != null)
                         {
+                            Debug.WriteLine($"##################### Args:\n{inData.args}");
                             protocalHandler.HandleProtocol(client, inData);
                         }
                     }

@@ -57,5 +57,14 @@
         {
             Application.Exit();
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (worldNameBox.Text == string.Empty)
+            {
+                parent.globalManager.SaveMap("World");
+            }
+            else { parent.globalManager.SaveMap(worldNameBox.Text); }
+        }
     }
 }

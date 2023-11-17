@@ -30,7 +30,7 @@
         {
             SaveButton = new Button();
             GenerateButton = new Button();
-            textBox1 = new TextBox();
+            worldNameBox = new TextBox();
             label1 = new Label();
             label2 = new Label();
             sizeXDown = new Button();
@@ -50,6 +50,7 @@
             SaveButton.TabIndex = 0;
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // GenerateButton
             // 
@@ -61,13 +62,13 @@
             GenerateButton.UseVisualStyleBackColor = true;
             GenerateButton.Click += GenerateButton_Click;
             // 
-            // textBox1
+            // worldNameBox
             // 
-            textBox1.Location = new Point(6, 481);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "World";
-            textBox1.Size = new Size(246, 23);
-            textBox1.TabIndex = 2;
+            worldNameBox.Location = new Point(6, 481);
+            worldNameBox.Name = "worldNameBox";
+            worldNameBox.PlaceholderText = "World";
+            worldNameBox.Size = new Size(246, 23);
+            worldNameBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -176,7 +177,7 @@
             Controls.Add(sizeXDown);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(worldNameBox);
             Controls.Add(GenerateButton);
             Controls.Add(SaveButton);
             Name = "OptionsForm";
@@ -190,7 +191,7 @@
 
         private Button SaveButton;
         private Button GenerateButton;
-        private TextBox textBox1;
+        private TextBox worldNameBox;
         private Label label1;
         private Label label2;
         private Button sizeXDown;

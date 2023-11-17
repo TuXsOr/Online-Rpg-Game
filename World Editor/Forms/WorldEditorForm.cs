@@ -30,7 +30,7 @@ namespace World_Editor.Forms
             {
                 for (int iy = 0; iy < sizeY; iy++)
                 {
-                    TileControl newTile = new TileControl(inWorld.worldTiles[ix, iy].displayChar, ix, iy);
+                    TileControl newTile = new TileControl(inWorld.worldTiles[ix, iy].displayChar, ix, iy, this);
                     DisplayPanel.Controls.Add(newTile);
                     displayedTiles.Add(newTile);
                 }

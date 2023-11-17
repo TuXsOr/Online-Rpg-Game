@@ -1,6 +1,6 @@
-﻿namespace World_Editor.Forms.Controls
+﻿namespace Client.Forms.Controls
 {
-    partial class TileControl
+    partial class DisplayTile
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,25 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            charBox = new TextBox();
+            displayChar = new Label();
             SuspendLayout();
             // 
-            // charBox
+            // displayChar
             // 
-            charBox.Location = new Point(3, 3);
-            charBox.Name = "charBox";
-            charBox.Size = new Size(26, 23);
-            charBox.TabIndex = 0;
-            charBox.TextChanged += chatBox_TextChanged;
+            displayChar.AutoSize = true;
+            displayChar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            displayChar.Location = new Point(8, 6);
+            displayChar.Name = "displayChar";
+            displayChar.Size = new Size(15, 21);
+            displayChar.TabIndex = 0;
+            displayChar.Text = "!";
             // 
-            // TileControl
+            // DisplayTile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Cyan;
-            Controls.Add(charBox);
-            ForeColor = SystemColors.ControlText;
-            Name = "TileControl";
+            BackColor = Color.Green;
+            Controls.Add(displayChar);
+            Name = "DisplayTile";
             Size = new Size(32, 32);
             ResumeLayout(false);
             PerformLayout();
@@ -54,6 +55,6 @@
 
         #endregion
 
-        private TextBox charBox;
+        private Label displayChar;
     }
 }

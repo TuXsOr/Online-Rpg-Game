@@ -20,6 +20,7 @@ namespace Client.Classes.Game
         public void UpdateWorldData(World inWorldData)
         {
             world = inWorldData;
+            globalManager.formManager.gameWindowForm!.UpdateWorldData(world);
         }
     }
 }
