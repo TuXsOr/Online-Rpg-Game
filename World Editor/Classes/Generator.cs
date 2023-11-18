@@ -25,7 +25,7 @@ namespace World_Editor.Classes
                 for (int iY = 0; iY < sizeY; iY++)
                 {
                     Tile newTile = new Tile();
-                    newTile.displayChar = "devtile1";
+                    newTile.displayChar = "grass";
                     globalManager.world.worldTiles[iX, iY] = newTile;
                 }
             }

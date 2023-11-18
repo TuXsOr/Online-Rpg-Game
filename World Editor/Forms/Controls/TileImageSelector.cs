@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using World_Editor.Classes;
-
-namespace World_Editor.Forms.Controls
+﻿namespace World_Editor.Forms.Controls
 {
     public partial class TileImageSelector : UserControl
     {
-        ImageSelection selectionForm;
-
-        public TileImageSelector(ImageSelection inSelector)
+        string imageKey;
+        TileProperties properties;
+        public TileImageSelector(Image? inImage, string imageKey, int posX, int posY, TileProperties tileProperties)
         {
             InitializeComponent();
-            selectionForm = inSelector;
+            if (inImage != null) { UpdateDisplay(inImage); }
+            this.imageKey = imageKey;
+            Location = new Point(posX * 55, posY * 55);
+            this.properties = tileProperties;
         }
 
         public void UpdateDisplay(Image inImage)
         {
             displayImageBox.Image = inImage;
+        }
+
+        private void displayImageBox_Click(object sender, EventArgs e)
+        {
+            properties.CharBox.Text = imageKey;
+            properties.UpdateDisplayImage(imageKey);
+            properties.imageSelector!.Close();
+            
         }
     }
 }

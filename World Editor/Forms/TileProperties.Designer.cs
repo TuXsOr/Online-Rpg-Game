@@ -218,7 +218,6 @@
         #endregion
 
         private Label label1;
-        private TextBox CharBox;
         private ListBox TownsList;
         private Label label2;
         private Button AcceptChanges;
@@ -231,5 +230,6 @@
         private ListBox FlagsList;
         private Button removeTownButton;
         private PictureBox demoTileImage;
+        public TextBox CharBox;
     }
 }

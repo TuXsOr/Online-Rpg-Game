@@ -2,9 +2,10 @@
 
 namespace Game.Classes
 {
-    internal class Renderer
+    public class Renderer
     {
         public ImageList art;
+        public List<string> imageNames = new List<string>();
 
         public Renderer()
         {
@@ -37,6 +38,7 @@ namespace Game.Classes
                 string filename = Path.GetFileNameWithoutExtension(files[i]);
 
                 art.Images.Add(filename, image);
+                imageNames.Add(filename);
 
                 Debug.WriteLine($"Loaded {filename}");
             }

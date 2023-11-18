@@ -5,9 +5,9 @@ namespace World_Editor.Forms
 {
     public partial class TileProperties : Form
     {
-        ImageSelection imageSelector;
+        internal ImageSelection? imageSelector;
 
-        TileControl tileControl;
+        public TileControl tileControl;
         List<string> towns = new List<string>();
         List<string> flags = new List<string>();
 
@@ -37,6 +37,11 @@ namespace World_Editor.Forms
             flags = inTile.flags;
             UpdateTownsList(towns);
             UpdateFlagsList(flags);
+        }
+
+        public void UpdateDisplayImage(string imageName)
+        {
+            demoTileImage.Image = tileControl.editor.globalManager.renderer.GetImage(imageName);
         }
 
         public void UpdateTownsList(List<string> inTowns)
@@ -92,9 +97,26 @@ namespace World_Editor.Forms
 
         private void demoTileImage_Click(object sender, EventArgs e)
         {
-            if (!imageSelector.Visible)
+            if (imageSelector != null)
             {
+                if (!imageSelector.Visible)
+                {
+                    imageSelector.Show();
+                    imageSelector.UpdateList(tileControl.editor.globalManager.renderer.imageNames, tileControl.editor.globalManager.renderer);
+                    imageSelector.Visible = true;
+                }
+                else
+                {
+                    imageSelector.Hide();
+                    imageSelector.Visible = false;
+                }
+            }
+            else
+            {
+                imageSelector = new ImageSelection(this);
                 imageSelector.Show();
+                imageSelector.UpdateList(tileControl.editor.globalManager.renderer.imageNames, tileControl.editor.globalManager.renderer);
+                imageSelector.Visible = true;
             }
         }
     }

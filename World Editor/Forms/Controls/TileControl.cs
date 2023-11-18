@@ -14,7 +14,7 @@ namespace World_Editor.Forms.Controls
         public TileControl(string displayChar, int posX, int posY, WorldEditorForm editor)
         {
             InitializeComponent();
-            this.Location = new Point(posX * 34, posY * 34);
+            this.Location = new Point(posX * 32, posY * 32);
             this.editor = editor;
             this.posX = posX;
             this.posY = posY;

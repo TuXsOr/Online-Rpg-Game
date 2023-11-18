@@ -36,10 +36,11 @@
             // 
             displayImageBox.Location = new Point(0, 0);
             displayImageBox.Name = "displayImageBox";
-            displayImageBox.Size = new Size(32, 32);
+            displayImageBox.Size = new Size(54, 54);
             displayImageBox.SizeMode = PictureBoxSizeMode.StretchImage;
             displayImageBox.TabIndex = 0;
             displayImageBox.TabStop = false;
+            displayImageBox.Click += displayImageBox_Click;
             // 
             // TileImageSelector
             // 
@@ -47,7 +48,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(displayImageBox);
             Name = "TileImageSelector";
-            Size = new Size(32, 32);
+            Size = new Size(54, 54);
             ((System.ComponentModel.ISupportInitialize)displayImageBox).EndInit();
             ResumeLayout(false);
         }
