@@ -5,6 +5,8 @@ namespace World_Editor.Forms
 {
     public partial class TileProperties : Form
     {
+        ImageSelection imageSelector;
+
         TileControl tileControl;
         List<string> towns = new List<string>();
         List<string> flags = new List<string>();
@@ -13,22 +15,24 @@ namespace World_Editor.Forms
         {
             InitializeComponent();
             tileControl = inTileBox;
+            imageSelector = new ImageSelection(this);
         }
 
         public void UpdateTileAtPosition()
         {
             Tile outTile = new Tile();
-            outTile.displayChar = CharBox.Text[0];
+            outTile.displayChar = CharBox.Text;
             outTile.towns = towns;
             outTile.flags = flags;
 
             tileControl.editor.globalManager.world!.worldTiles[tileControl.posX, tileControl.posY] = outTile;
-            tileControl.displayChar.Text = CharBox.Text[0].ToString();
+            tileControl.UpdateImage(outTile.displayChar);
         }
 
         public void InitDisplay(Tile inTile)
         {
-            CharBox.Text = inTile.displayChar.ToString();
+            CharBox.Text = inTile.displayChar;
+            demoTileImage.Image = tileControl.editor.globalManager.renderer.GetImage(inTile.displayChar);
             towns = inTile.towns;
             flags = inTile.flags;
             UpdateTownsList(towns);
@@ -84,6 +88,14 @@ namespace World_Editor.Forms
         private void cancelChanges_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void demoTileImage_Click(object sender, EventArgs e)
+        {
+            if (!imageSelector.Visible)
+            {
+                imageSelector.Show();
+            }
         }
     }
 }

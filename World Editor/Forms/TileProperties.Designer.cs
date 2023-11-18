@@ -41,24 +41,26 @@
             label3 = new Label();
             FlagsList = new ListBox();
             removeTownButton = new Button();
+            demoTileImage = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)demoTileImage).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(9, 9);
+            label1.Location = new Point(9, 13);
             label1.Name = "label1";
-            label1.Size = new Size(133, 25);
+            label1.Size = new Size(103, 25);
             label1.TabIndex = 0;
-            label1.Text = "Tile Character:";
+            label1.Text = "Tile Image:";
             // 
             // CharBox
             // 
             CharBox.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            CharBox.Location = new Point(164, 6);
+            CharBox.Location = new Point(330, 6);
             CharBox.Name = "CharBox";
-            CharBox.Size = new Size(36, 32);
+            CharBox.Size = new Size(110, 32);
             CharBox.TabIndex = 1;
             // 
             // TownsList
@@ -84,7 +86,7 @@
             // 
             AcceptChanges.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             AcceptChanges.ForeColor = Color.Green;
-            AcceptChanges.Location = new Point(12, 357);
+            AcceptChanges.Location = new Point(119, 220);
             AcceptChanges.Name = "AcceptChanges";
             AcceptChanges.Size = new Size(84, 31);
             AcceptChanges.TabIndex = 4;
@@ -96,7 +98,7 @@
             // 
             cancelChanges.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             cancelChanges.ForeColor = Color.FromArgb(192, 0, 0);
-            cancelChanges.Location = new Point(116, 357);
+            cancelChanges.Location = new Point(220, 220);
             cancelChanges.Name = "cancelChanges";
             cancelChanges.Size = new Size(84, 31);
             cancelChanges.TabIndex = 5;
@@ -126,7 +128,7 @@
             // addFlagButton
             // 
             addFlagButton.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            addFlagButton.Location = new Point(12, 313);
+            addFlagButton.Location = new Point(220, 146);
             addFlagButton.Name = "addFlagButton";
             addFlagButton.Size = new Size(49, 23);
             addFlagButton.TabIndex = 11;
@@ -136,7 +138,7 @@
             // 
             // newFlagText
             // 
-            newFlagText.Location = new Point(69, 314);
+            newFlagText.Location = new Point(277, 147);
             newFlagText.Name = "newFlagText";
             newFlagText.PlaceholderText = "Flag";
             newFlagText.Size = new Size(134, 23);
@@ -146,7 +148,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(12, 215);
+            label3.Location = new Point(220, 48);
             label3.Name = "label3";
             label3.Size = new Size(59, 25);
             label3.TabIndex = 9;
@@ -156,7 +158,7 @@
             // 
             FlagsList.FormattingEnabled = true;
             FlagsList.ItemHeight = 15;
-            FlagsList.Location = new Point(12, 243);
+            FlagsList.Location = new Point(220, 76);
             FlagsList.Name = "FlagsList";
             FlagsList.Size = new Size(191, 64);
             FlagsList.TabIndex = 8;
@@ -171,12 +173,24 @@
             removeTownButton.Text = "Remove Town";
             removeTownButton.UseVisualStyleBackColor = true;
             // 
+            // demoTileImage
+            // 
+            demoTileImage.BackColor = SystemColors.ButtonShadow;
+            demoTileImage.Location = new Point(118, 6);
+            demoTileImage.Name = "demoTileImage";
+            demoTileImage.Size = new Size(45, 45);
+            demoTileImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            demoTileImage.TabIndex = 13;
+            demoTileImage.TabStop = false;
+            demoTileImage.Click += demoTileImage_Click;
+            // 
             // TileProperties
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(212, 400);
+            ClientSize = new Size(452, 260);
             ControlBox = false;
+            Controls.Add(demoTileImage);
             Controls.Add(removeTownButton);
             Controls.Add(addFlagButton);
             Controls.Add(newFlagText);
@@ -196,6 +210,7 @@
             Name = "TileProperties";
             Text = "TileProperties";
             FormClosed += TileProperties_FormClosed;
+            ((System.ComponentModel.ISupportInitialize)demoTileImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,5 +230,6 @@
         private Label label3;
         private ListBox FlagsList;
         private Button removeTownButton;
+        private PictureBox demoTileImage;
     }
 }

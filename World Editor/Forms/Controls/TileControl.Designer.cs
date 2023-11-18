@@ -28,37 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            displayChar = new Label();
+            TileImageBox = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)TileImageBox).BeginInit();
             SuspendLayout();
             // 
-            // displayChar
+            // TileImageBox
             // 
-            displayChar.AutoSize = true;
-            displayChar.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            displayChar.ForeColor = Color.White;
-            displayChar.Location = new Point(0, 0);
-            displayChar.Name = "displayChar";
-            displayChar.Size = new Size(14, 13);
-            displayChar.TabIndex = 0;
-            displayChar.Text = "#";
+            TileImageBox.BorderStyle = BorderStyle.FixedSingle;
+            TileImageBox.Location = new Point(0, 0);
+            TileImageBox.Margin = new Padding(0);
+            TileImageBox.MaximumSize = new Size(32, 32);
+            TileImageBox.Name = "TileImageBox";
+            TileImageBox.Size = new Size(32, 32);
+            TileImageBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            TileImageBox.TabIndex = 0;
+            TileImageBox.TabStop = false;
+            TileImageBox.Click += TileImageBox_Click;
             // 
             // TileControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.DarkGreen;
-            Controls.Add(displayChar);
+            BackColor = Color.White;
+            Controls.Add(TileImageBox);
             Cursor = Cursors.Hand;
             ForeColor = SystemColors.ControlText;
             Name = "TileControl";
             Size = new Size(32, 32);
-            Click += TileControl_Click;
+            ((System.ComponentModel.ISupportInitialize)TileImageBox).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        internal Label displayChar;
+        private PictureBox TileImageBox;
     }
 }

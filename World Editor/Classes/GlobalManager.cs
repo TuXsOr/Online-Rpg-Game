@@ -9,9 +9,11 @@ namespace World_Editor.Classes
 
         internal WorldEditorForm? editorForm;
         internal Generator generator;
+        internal Renderer renderer;
 
         public GlobalManager()
         {
+            renderer = new Renderer();
             generator = new Generator(this);
             DisplayEditor();
         }

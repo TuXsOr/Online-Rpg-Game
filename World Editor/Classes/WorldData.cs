@@ -22,7 +22,7 @@
     [Serializable]
     public class Tile
     {
-        public char displayChar { get; set; } = '.';
+        public string displayChar { get; set; } = "devtile";
         public List<string> towns { get; set; } = new List<string>();
         public List<string> flags { get; set; } = new List<string>();
     }

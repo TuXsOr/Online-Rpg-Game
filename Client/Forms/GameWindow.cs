@@ -2,19 +2,20 @@
 using Client.Classes.Game;
 using Client.Forms.Controls;
 using Game.Classes;
+using System.Diagnostics;
 
 namespace Client.Forms
 {
     internal partial class GameWindow : Form
     {
-        WorldManager worldManager;
+        GlobalManager globalManager;
         public Inventory inventory;
         List<DisplayTile> displayedTiles = new List<DisplayTile>();
 
-        public GameWindow(WorldManager inManager, GlobalManager inGlobalManager)
+        public GameWindow(GlobalManager inGlobalManager)
         {
             InitializeComponent();
-            worldManager = inManager;
+            globalManager = inGlobalManager;
             inventory = new Inventory(inGlobalManager);
         }
 
@@ -28,8 +29,14 @@ namespace Client.Forms
             {
                 for (int iY = 0; iY < sizeY; iY++)
                 {
-                    DisplayTile newTile = new DisplayTile(iX, iY, inWorld.worldTiles[iX, iY]);
-                    TilePanel.Controls.Add(newTile);
+                    Image? image = globalManager.renderer.GetImage(inWorld.worldTiles[iX, iY].displayChar);
+                    
+                    if (image != null)
+                    {
+                        DisplayTile newTile = new DisplayTile(iX, iY, inWorld.worldTiles[iX, iY], image);
+                        TilePanel.Controls.Add(newTile);
+                    }
+                    else { Debug.WriteLine("Null Image when drawing tiles"); }
                 }
             }
         }

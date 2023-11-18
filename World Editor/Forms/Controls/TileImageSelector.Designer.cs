@@ -1,6 +1,6 @@
-﻿namespace Client.Forms.Controls
+﻿namespace World_Editor.Forms.Controls
 {
-    partial class DisplayTile
+    partial class TileImageSelector
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,33 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TileImageBox = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)TileImageBox).BeginInit();
+            displayImageBox = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)displayImageBox).BeginInit();
             SuspendLayout();
             // 
-            // TileImageBox
+            // displayImageBox
             // 
-            TileImageBox.Location = new Point(0, 0);
-            TileImageBox.Name = "TileImageBox";
-            TileImageBox.Size = new Size(32, 32);
-            TileImageBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            TileImageBox.TabIndex = 0;
-            TileImageBox.TabStop = false;
+            displayImageBox.Location = new Point(0, 0);
+            displayImageBox.Name = "displayImageBox";
+            displayImageBox.Size = new Size(32, 32);
+            displayImageBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            displayImageBox.TabIndex = 0;
+            displayImageBox.TabStop = false;
             // 
-            // DisplayTile
+            // TileImageSelector
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Green;
-            Controls.Add(TileImageBox);
-            Name = "DisplayTile";
+            Controls.Add(displayImageBox);
+            Name = "TileImageSelector";
             Size = new Size(32, 32);
-            ((System.ComponentModel.ISupportInitialize)TileImageBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)displayImageBox).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private PictureBox TileImageBox;
+        private PictureBox displayImageBox;
     }
 }

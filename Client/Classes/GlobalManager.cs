@@ -5,12 +5,12 @@ namespace Client.Classes
 {
     internal class GlobalManager : ApplicationContext
     {
+        public Renderer renderer;
+        public WorldManager worldManager;
         internal FormManager formManager;
         internal FileManager fileManager = new FileManager();
         internal NetworkManager networkManager;
         internal ProtocolHandler protocolHandler;
-        public WorldManager worldManager;
-        public Renderer renderer;
 
         // Constructor
         public GlobalManager()
