@@ -4,6 +4,8 @@
     public class Entity
     {
         public char displayChar { get; set; } = 'o';
+        public int posX { get; set; } = 0;
+        public int posY { get; set; } = 0;
     }
 
     [Serializable]
@@ -12,6 +14,7 @@
         public string name { get; set; } = string.Empty;
         public int level { get; set; } = 1;
         public int experience { get; set; } = 0;
+        public string[] equipment { get; set; } = new string[0];
         public int money { get; set; } = 0;
         public List<string> inventory { get; set; } = new List<string>();
     }

@@ -22,5 +22,11 @@ namespace Client.Classes.Game
             world = inWorldData;
             globalManager.formManager.gameWindowForm!.UpdateWorldData(world);
         }
+
+        public void UpdateCharacterData(Character inCharacter)
+        {
+            character = inCharacter;
+            globalManager.formManager.gameWindowForm!.inventory.updateInventory(character);
+        }
     }
 }

@@ -61,7 +61,6 @@ namespace Client.Classes
             try
             {
                 stream = client!.GetStream(); // get the client's stream
-                // Double check if using `!` correctly in the morning
 
                 byte[] buffer = new byte[bufferSize]; // setup buffer
                 int bytesRead;

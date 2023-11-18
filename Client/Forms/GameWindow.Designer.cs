@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             TilePanel = new Panel();
-            button1 = new Button();
+            InventoryButton = new Button();
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
@@ -43,14 +43,15 @@
             TilePanel.Size = new Size(512, 512);
             TilePanel.TabIndex = 0;
             // 
-            // button1
+            // InventoryButton
             // 
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(128, 36);
-            button1.TabIndex = 1;
-            button1.Text = "Inventory";
-            button1.UseVisualStyleBackColor = true;
+            InventoryButton.Location = new Point(12, 12);
+            InventoryButton.Name = "InventoryButton";
+            InventoryButton.Size = new Size(128, 36);
+            InventoryButton.TabIndex = 1;
+            InventoryButton.Text = "Inventory";
+            InventoryButton.UseVisualStyleBackColor = true;
+            InventoryButton.Click += InventoryButton_Click;
             // 
             // button2
             // 
@@ -90,19 +91,20 @@
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(InventoryButton);
             Controls.Add(TilePanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "GameWindow";
             Text = "GameWindow";
+            FormClosed += GameWindow_FormClosed;
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel TilePanel;
-        private Button button1;
+        private Button InventoryButton;
         private Button button2;
         private Button button3;
         private Button button4;

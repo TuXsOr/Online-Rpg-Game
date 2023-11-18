@@ -31,7 +31,7 @@ namespace Client.Classes
         {
             serverSelectForm = new ServerSelect(this); forms.Add(serverSelectForm);
             loginForm = new Login(this); forms.Add(loginForm);
-            gameWindowForm = new GameWindow(globalManager.worldManager);
+            gameWindowForm = new GameWindow(globalManager.worldManager, globalManager);
         }
 
         // Switching forms

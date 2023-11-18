@@ -63,11 +63,10 @@ namespace Client.Classes
                 case "chardata":
                     if (inArgs != "failed")
                     {
-                        Character inCharacter = JsonConvert.DeserializeObject<Character>(inArgs)!;
-
                         globalManager.formManager.Invoke(new Action(() =>
                         {
-                            globalManager.worldManager.character = inCharacter;
+                            Character inCharacter = JsonConvert.DeserializeObject<Character>(inArgs)!;
+                            globalManager.worldManager.UpdateCharacterData(inCharacter);
                             
                             globalManager.formManager.UpdateLoadingMenu("Requesting World Data...", 75);
                             globalManager.networkManager.MessageServer("worldrequest", string.Empty);

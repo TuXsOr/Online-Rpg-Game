@@ -1,4 +1,5 @@
-﻿using Client.Classes.Game;
+﻿using Client.Classes;
+using Client.Classes.Game;
 using Client.Forms.Controls;
 using Game.Classes;
 
@@ -7,17 +8,14 @@ namespace Client.Forms
     internal partial class GameWindow : Form
     {
         WorldManager worldManager;
+        public Inventory inventory;
         List<DisplayTile> displayedTiles = new List<DisplayTile>();
 
-        public GameWindow(WorldManager inManager)
+        public GameWindow(WorldManager inManager, GlobalManager inGlobalManager)
         {
             InitializeComponent();
             worldManager = inManager;
-        }
-
-        public void UpdateCharacterData()
-        {
-
+            inventory = new Inventory(inGlobalManager);
         }
 
         public void UpdateWorldData(World inWorld)
@@ -44,6 +42,17 @@ namespace Client.Forms
             }
             displayedTiles.Clear();
             displayedTiles = new List<DisplayTile>();
+        }
+
+        private void InventoryButton_Click(object sender, EventArgs e)
+        {
+            if (inventory.Visible) { inventory.Hide(); inventory.Visible = false; }
+            else { inventory.Show(); inventory.Visible = true; }
+        }
+
+        private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

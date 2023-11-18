@@ -1,4 +1,5 @@
 ﻿using Client.Classes.Game;
+using Game.Classes;
 
 namespace Client.Classes
 {
@@ -9,6 +10,7 @@ namespace Client.Classes
         internal NetworkManager networkManager;
         internal ProtocolHandler protocolHandler;
         public WorldManager worldManager;
+        public Renderer renderer;
 
         // Constructor
         public GlobalManager()
@@ -17,6 +19,7 @@ namespace Client.Classes
             formManager = new FormManager(this);
             networkManager = new NetworkManager(this);
             worldManager = new WorldManager(this);
+            renderer = new Renderer(this);
         }
 
         // Close Application Entirely
