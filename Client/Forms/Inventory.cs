@@ -21,5 +21,10 @@ namespace Client.Forms
             }
             itemsList.Refresh();
         }
+
+        private void Inventory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            globalManager.formManager.gameWindowForm!.inventory = null;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Client.Forms
     internal partial class GameWindow : Form
     {
         GlobalManager globalManager;
-        public Inventory inventory;
+        public Inventory? inventory;
         List<DisplayTile> displayedTiles = new List<DisplayTile>();
 
         public GameWindow(GlobalManager inGlobalManager)
@@ -53,8 +53,18 @@ namespace Client.Forms
 
         private void InventoryButton_Click(object sender, EventArgs e)
         {
-            if (inventory.Visible) { inventory.Hide(); inventory.Visible = false; }
-            else { inventory.Show(); inventory.Visible = true; }
+            if (inventory != null)
+            {
+                if (inventory.Visible) { inventory.Hide(); inventory.Visible = false; }
+                else { inventory.Show(); inventory.Visible = true; }
+            }
+            else
+            {
+                inventory = new Inventory(globalManager);
+
+                if (inventory.Visible) { inventory.Hide(); inventory.Visible = false; }
+                else { inventory.Show(); inventory.Visible = true; }
+            }
         }
 
         private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)

@@ -51,6 +51,7 @@
             MaximizeBox = false;
             Name = "Inventory";
             Text = "Inventory";
+            FormClosing += Inventory_FormClosing;
             ResumeLayout(false);
         }
 
