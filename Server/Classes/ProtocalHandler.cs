@@ -35,6 +35,49 @@ namespace Server.Classes.Network
                     Console.WriteLine("Client connected and completed handshake");
                     break;
 
+                // CharacterMovement Handling
+                case "move":
+                    if (networkManager.globalManager.fileManager.AccountExists(inClient.username))
+                    {
+                        // Get target character
+                        Character targetCharacter = networkManager.globalManager.fileManager.GetCharacter(inClient.username)!;
+                        
+                        if (targetCharacter != null)
+                        {
+                            // Switch on direction
+                            switch (args[0])
+                            {
+                                ///////////////////////////////////////////////
+                                /// Collision should be handleded here!!!
+                                ///////////////////////////////////////////////
+
+                                case "up":
+                                    targetCharacter.posY--;
+                                    break;
+
+                                case "down":
+                                    targetCharacter.posY++;
+                                    break;
+
+                                case "left":
+                                    targetCharacter.posX--;
+                                    break;
+
+                                case "right":
+                                    targetCharacter.posX++;
+                                    break;
+
+                                default:
+                                    networkManager.SendClientMessage(inClient, "movement", "failed");
+                                    break;
+                            }
+
+                            networkManager.SendClientMessage(inClient, "movement", $"{targetCharacter.posX}:{targetCharacter.posY}");
+                            networkManager.globalManager.fileManager.UpdateCharacterData(inClient.username, targetCharacter);
+                        }
+                    }
+                    break;
+
                 // Login handling
                 case "login":
                     // CHeck if login was correct

@@ -1,4 +1,5 @@
-﻿using Game.Classes;
+﻿using Client.Forms;
+using Game.Classes;
 
 namespace Client.Classes.Game
 {
@@ -26,7 +27,26 @@ namespace Client.Classes.Game
         public void UpdateCharacterData(Character inCharacter)
         {
             character = inCharacter;
-            globalManager.formManager.gameWindowForm!.inventory.updateInventory(character);
+            
+            // If inventory exists attempt to update it with the new character data
+            if (globalManager.formManager.gameWindowForm!.inventory != null)
+            {
+                globalManager.formManager.gameWindowForm.inventory.updateInventory(character);
+            }
+        }
+
+        public bool UpdateCharacterPosition(int newX, int newY)
+        {
+            // if character is not null then update its position
+            if (character != null && world != null)
+            {
+                character.posX = newX;
+                character.posY = newY;
+
+                globalManager.formManager.gameWindowForm!.UpdateEntities(world, character);
+                return true;
+            }
+            return false;
         }
     }
 }

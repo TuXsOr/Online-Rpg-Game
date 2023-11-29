@@ -4,8 +4,8 @@
     public class Entity
     {
         public char displayChar { get; set; } = 'o';
-        public int posX { get; set; } = 0;
-        public int posY { get; set; } = 0;
+        public int posX { get; set; } = 2;
+        public int posY { get; set; } = 2;
     }
 
     [Serializable]

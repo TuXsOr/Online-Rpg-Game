@@ -111,7 +111,6 @@ namespace Server.Classes
             {
                 string characterJson = JsonConvert.SerializeObject(newData, Formatting.Indented);
                 File.WriteAllText(filepath, characterJson);
-                Console.WriteLine($"Updated {inName}");
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }

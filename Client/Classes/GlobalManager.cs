@@ -12,6 +12,8 @@ namespace Client.Classes
         internal NetworkManager networkManager;
         internal ProtocolHandler protocolHandler;
 
+        public bool allowMove = false;
+
         // Constructor
         public GlobalManager()
         {

@@ -15,7 +15,8 @@ namespace Server.Classes.Network
         // Setup default server configuration
         public IPAddress serverIP = IPAddress.Parse("0.0.0.0");
         public int serverPort = 80;
-        private int bufferSize = 10240;
+        // private int bufferSize = 10240;
+        private int bufferSize = 1000000;
         private ProtocalHandler protocalHandler;
 
         // Declare the TCP listener
@@ -102,7 +103,7 @@ namespace Server.Classes.Network
         }
 
 
-        public void HandleClient(object? inClient)
+        async public void HandleClient(object? inClient)
         {
             ConnectedClient client = (ConnectedClient)inClient!;
 
@@ -120,7 +121,7 @@ namespace Server.Classes.Network
                     {
 
                         // Gets the number of bytes to read (I'm pretty sure)
-                        int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
 
 
                         // Check if client disconnected
@@ -154,7 +155,7 @@ namespace Server.Classes.Network
 
 
         // Message Target Client
-        public void SendClientMessage(ConnectedClient inClient, string outProtocol, string outArgs)
+        async public void SendClientMessage(ConnectedClient inClient, string outProtocol, string outArgs)
         {
             NetworkTransfer outTransfer = new NetworkTransfer();
             outTransfer.protocol = outProtocol;
@@ -164,7 +165,7 @@ namespace Server.Classes.Network
             byte[] outData = Encoding.UTF8.GetBytes(outJson);
 
             NetworkStream clientStream = inClient.tcpClient.GetStream();
-            clientStream.Write(outData);
+            await clientStream.WriteAsync(outData);
         }
 
         // Get index of client with id from the list of connected clients

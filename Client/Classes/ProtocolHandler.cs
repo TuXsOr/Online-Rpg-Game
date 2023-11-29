@@ -28,6 +28,39 @@ namespace Client.Classes
                         break;
                     } else { break; }
 
+                // Character Movement
+                case "movement":
+                    if (inArgs != "failed")
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            globalManager.worldManager.UpdateCharacterPosition( int.Parse(args[0]), int.Parse(args[1]) );
+                        }));
+                        break;
+                    }
+                    else { break; }
+
+                // updating world data
+                case "worldupdate":
+                    if (inArgs != null || inArgs != string.Empty)
+                    {
+                        globalManager.formManager.Invoke(new Action(() =>
+                        {
+                            World? inWorld = JsonConvert.DeserializeObject<World>(inArgs!);
+
+                            if (inWorld != null)
+                            {
+                                globalManager.worldManager.UpdateWorldData(inWorld);
+                            }
+                            else { }
+                        }));
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
                 // Receiving world data
                 case "worlddata":
                     if (inArgs != null || inArgs != string.Empty)

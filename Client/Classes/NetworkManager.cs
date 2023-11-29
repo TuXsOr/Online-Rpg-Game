@@ -16,7 +16,7 @@ namespace Client.Classes
         // Network Connection Properties
         internal string targetIP = "127.0.0.1";
         internal int targetPort = 8080;
-        internal int bufferSize = 10240;
+        internal int bufferSize = 1000000;
 
         // Client and stream declerations
         protected internal TcpClient? client;
@@ -56,7 +56,7 @@ namespace Client.Classes
             catch (Exception ex) { Debug.WriteLine($"Error in network manager when attempting to connect to server. \n Error message: \n {ex}"); }
         }
 
-        public void HandleCommunication()
+        async public void HandleCommunication()
         {
             try
             {
@@ -69,7 +69,8 @@ namespace Client.Classes
                 while (connected) // Replace true with some value that can be changed
                 {
                     // Get how many bytes to read
-                    bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    // bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
 
                     if (bytesRead > 0)
                     {
@@ -95,7 +96,7 @@ namespace Client.Classes
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error in Network Manager when handling communication. \n Error Message: \n {ex}");
+                MessageBox.Show($"Error in Network Manager when handling communication. \n Error Message: \n {ex}");
             }
         }
 
