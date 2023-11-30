@@ -25,6 +25,7 @@
         public string displayChar { get; set; } = ".";
         public List<string> towns { get; set; } = new List<string>();
         public List<string> flags { get; set; } = new List<string>();
+        public List<Entity> entities { get; set; } = new List<Entity>();
     }
 
     [Serializable]

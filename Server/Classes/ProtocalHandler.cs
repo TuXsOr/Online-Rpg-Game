@@ -72,8 +72,12 @@ namespace Server.Classes.Network
                                     break;
                             }
 
-                            networkManager.SendClientMessage(inClient, "movement", $"{targetCharacter.posX}:{targetCharacter.posY}");
-                            networkManager.globalManager.fileManager.UpdateCharacterData(inClient.username, targetCharacter);
+                            if (networkManager.globalManager.worldManager.CanMove(targetCharacter.posX, targetCharacter.posY))
+                            {
+                                networkManager.SendClientMessage(inClient, "movement", $"{targetCharacter.posX}:{targetCharacter.posY}");
+                                networkManager.globalManager.fileManager.UpdateCharacterData(inClient.username, targetCharacter);
+                            }
+                            else { networkManager.SendClientMessage(inClient, "movement", "failed"); }
                         }
                     }
                     break;

@@ -17,5 +17,14 @@ namespace Server.Classes.Game
             // If world is null then use default world
             if (world == null) { world = new World(); }
         }
+
+        public bool CanMove(int newX, int newY)
+        {
+            if (world == null) { return false; }
+            if (world.worldTiles == null) { return false; }
+            if (world.worldTiles[newX, newY]  == null) { return false; }
+            if (world.worldTiles[newX, newY].flags.Contains("c")) { return false; }
+            return true;
+        }
     }
 }

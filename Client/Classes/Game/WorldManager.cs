@@ -21,7 +21,8 @@ namespace Client.Classes.Game
         public void UpdateWorldData(World inWorldData)
         {
             world = inWorldData;
-            globalManager.formManager.gameWindowForm!.UpdateWorldData(world);
+            globalManager.formManager.gameWindowForm!.DrawMap();
+            // globalManager.formManager.gameWindowForm!.UpdateEntities(world, character!);
         }
 
         public void UpdateCharacterData(Character inCharacter)
@@ -43,7 +44,7 @@ namespace Client.Classes.Game
                 character.posX = newX;
                 character.posY = newY;
 
-                globalManager.formManager.gameWindowForm!.UpdateEntities(world, character);
+                globalManager.formManager.gameWindowForm!.DrawMap();
                 return true;
             }
             return false;

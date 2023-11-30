@@ -32,10 +32,11 @@ namespace World_Editor.Classes
         }
 
         // Saving the map to a file
-        public void SaveMap(string worldName)
+        async public void SaveMap(string worldName)
         {
             string mapDataString = JsonConvert.SerializeObject(globalManager.world, Formatting.Indented);
-            File.WriteAllText($"{Directory.GetCurrentDirectory()}\\{worldName}.world", mapDataString);
+            await File.WriteAllTextAsync($"{Directory.GetCurrentDirectory()}\\{worldName}.world", mapDataString);
+            MessageBox.Show($"Finished saving {worldName}.world");
         }
     }
 }
